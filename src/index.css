@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Stint+Ultra+Expanded:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Color Palette */
+    --deep-blue: #003a54;
+    --warm-orange: #b85a1e;
+    --light-gray: #f8f8f8;
+    --white: #ffffff;
+    --medium-gray: #737373;
+    --dark-gray: #2a2a2a;
+    
+    /* Extended palette for variations */
+    --deep-blue-light: #004d6b;
+    --deep-blue-dark: #002a3d;
+    --warm-orange-light: #d4722a;
+    --warm-orange-dark: #9a4a18;
+    --light-gray-dark: #e8e8e8;
+    --medium-gray-light: #8a8a8a;
+    --medium-gray-dark: #5a5a5a;
+  }
+
+  * {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-special {
+    font-family: 'Stint Ultra Expanded', serif;
+  }
+
+  .font-handwriting {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--deep-blue);
+  }
+
+  .dark .font-handwriting {
+    color: var(--white);
+  }
+
+  /* Ensure font loading and visibility */
+  .font-handwriting {
+    font-display: swap;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Fallback for font loading */
+  .font-handwriting:not(.font-loaded) {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+  }
+
+  body {
+    color: var(--medium-gray);
+    background-color: var(--white);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--deep-blue);
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  /* Deep Blue Colors */
+  .text-deep-blue { color: var(--deep-blue); }
+  .text-deep-blue-light { color: var(--deep-blue-light); }
+  .text-deep-blue-dark { color: var(--deep-blue-dark); }
+  .bg-deep-blue { background-color: var(--deep-blue); }
+  .bg-deep-blue-light { background-color: var(--deep-blue-light); }
+  .bg-deep-blue-dark { background-color: var(--deep-blue-dark); }
+  .border-deep-blue { border-color: var(--deep-blue); }
+  .border-deep-blue-light { border-color: var(--deep-blue-light); }
+  .border-deep-blue-dark { border-color: var(--deep-blue-dark); }
+
+  /* Warm Orange Colors */
+  .text-warm-orange { color: var(--warm-orange); }
+  .text-warm-orange-light { color: var(--warm-orange-light); }
+  .text-warm-orange-dark { color: var(--warm-orange-dark); }
+  .bg-warm-orange { background-color: var(--warm-orange); }
+  .bg-warm-orange-light { background-color: var(--warm-orange-light); }
+  .bg-warm-orange-dark { background-color: var(--warm-orange-dark); }
+  .border-warm-orange { border-color: var(--warm-orange); }
+  .border-warm-orange-light { border-color: var(--warm-orange-light); }
+  .border-warm-orange-dark { border-color: var(--warm-orange-dark); }
+
+  /* Gray Colors */
+  .text-light-gray { color: var(--light-gray); }
+  .text-medium-gray { color: var(--medium-gray); }
+  .text-medium-gray-light { color: var(--medium-gray-light); }
+  .text-medium-gray-dark { color: var(--medium-gray-dark); }
+  .bg-light-gray { background-color: var(--light-gray); }
+  .bg-light-gray-dark { background-color: var(--light-gray-dark); }
+  .bg-medium-gray { background-color: var(--medium-gray); }
+  .bg-medium-gray-light { background-color: var(--medium-gray-light); }
+  .bg-medium-gray-dark { background-color: var(--medium-gray-dark); }
+  .border-light-gray { border-color: var(--light-gray); }
+  .border-medium-gray { border-color: var(--medium-gray); }
+
+  /* Hover states */
+  .hover\:text-deep-blue:hover { color: var(--deep-blue); }
+  .hover\:text-warm-orange:hover { color: var(--warm-orange); }
+  .hover\:bg-deep-blue:hover { background-color: var(--deep-blue); }
+  .hover\:bg-warm-orange:hover { background-color: var(--warm-orange); }
+  .hover\:bg-warm-orange-light:hover { background-color: var(--warm-orange-light); }
+  .hover\:bg-warm-orange-dark:hover { background-color: var(--warm-orange-dark); }
+  .hover\:border-deep-blue:hover { border-color: var(--deep-blue); }
+  .hover\:border-warm-orange:hover { border-color: var(--warm-orange); }
+
+  /* Focus states */
+  .focus\:ring-deep-blue:focus { --tw-ring-color: var(--deep-blue); }
+  .focus\:ring-warm-orange:focus { --tw-ring-color: var(--warm-orange); }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-warm-orange text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:bg-transparent hover:border-2 hover:border-warm-orange hover:text-warm-orange;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-deep-blue text-deep-blue px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-deep-blue hover:text-white;
+  }
+
+  .btn-outline {
+    @apply bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-deep-blue;
+  }
+
+  /* Link styles */
+  .link-primary {
+    @apply text-warm-orange transition-all duration-300 hover:underline hover:text-warm-orange-dark;
+  }
+
+  .link-secondary {
+    @apply text-deep-blue transition-all duration-300 hover:underline hover:text-deep-blue-light;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    @apply w-24 h-1 bg-warm-orange mx-auto my-8;
+  }
+
+  .section-divider-left {
+    @apply w-24 h-1 bg-warm-orange my-8;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-lg shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:transform hover:scale-105;
+  }
+
+  .card-light {
+    @apply bg-light-gray rounded-lg p-8 transition-all duration-300 hover:shadow-lg;
+  }
+
+  /* Typography utilities */
+  .heading-xl {
+    @apply text-5xl md:text-7xl font-bold text-deep-blue leading-tight;
+  }
+
+  .heading-lg {
+    @apply text-4xl md:text-5xl font-bold text-deep-blue leading-tight;
+  }
+
+  .heading-md {
+    @apply text-3xl md:text-4xl font-bold text-deep-blue leading-tight;
+  }
+
+  .heading-sm {
+    @apply text-2xl md:text-3xl font-bold text-deep-blue leading-tight;
+  }
+
+  .body-lg {
+    @apply text-lg md:text-xl text-medium-gray leading-relaxed;
+  }
+
+  .body-md {
+    @apply text-base md:text-lg text-medium-gray leading-relaxed;
+  }
+
+  .body-sm {
+    @apply text-sm md:text-base text-medium-gray leading-relaxed;
+  }
+
+  /* Animation utilities */
+  .fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .scale-hover {
+    @apply transition-transform duration-300 hover:scale-110;
+  }
+
+
+
+  .scale-hover-sm {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  /* Layout utilities */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .section-padding-sm {
+    @apply py-12 md:py-16;
+  }
+
+  /* Dark mode overrides */
+  .dark .bg-light-gray { background-color: var(--dark-gray); }
+  .dark .text-medium-gray { color: var(--medium-gray-light); }
+  .dark .text-deep-blue { color: var(--white); }
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--white);
+  }
+  
+  /* Additional dark mode text fixes */
+  .dark .text-medium-gray-light { color: var(--white); }
+  .dark .text-medium-gray-dark { color: var(--medium-gray-light); }
+  .dark .text-light-gray { color: var(--white); }
+  
+  /* Dark mode background fixes */
+  .dark .bg-white { background-color: var(--deep-blue); }
+  .dark .bg-light-gray-dark { background-color: var(--dark-gray); }
+  
+  /* Dark mode border fixes */
+  .dark .border-light-gray { border-color: var(--medium-gray); }
+  .dark .border-medium-gray { border-color: var(--medium-gray-light); }
+  
+  /* Dark mode card fixes */
+  .dark .card { 
+    background-color: var(--deep-blue); 
+    border-color: var(--medium-gray);
+  }
+  .dark .card-light { 
+    background-color: var(--dark-gray); 
+    border-color: var(--medium-gray);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-gray);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--dark-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--medium-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--warm-orange);
+}
+
+/* Selection colors */
+::selection {
+  background-color: var(--warm-orange);
+  color: var(--white);
+}
+
+::-moz-selection {
+  background-color: var(--warm-orange);
+  color: var(--white);
+}
+
+/* Modal positioning fixes */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+  padding-top: 2rem;
+}
+
+.modal-container {
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 80rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.dark .modal-container {
+  background: var(--deep-blue);
+}
+
+.modal-header {
+  flex-shrink: 0;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--light-gray);
+  background: var(--light-gray);
+}
+
+.dark .modal-header {
+  border-bottom-color: var(--medium-gray);
+  background: var(--dark-gray);
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--warm-orange) var(--light-gray);
+}
+
+.dark .modal-body {
+  scrollbar-color: var(--warm-orange) var(--dark-gray);
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: var(--light-gray);
+  border-radius: 3px;
+}
+
+.dark .modal-body::-webkit-scrollbar-track {
+  background: var(--dark-gray);
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: var(--warm-orange);
+  border-radius: 3px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--warm-orange-dark);
+}
+
+.modal-footer {
+  flex-shrink: 0;
+  padding: 1.5rem;
+  border-top: 1px solid var(--light-gray);
+  background: var(--light-gray);
+}
+
+.dark .modal-footer {
+  border-top-color: var(--medium-gray);
+  background: var(--dark-gray);
+}
