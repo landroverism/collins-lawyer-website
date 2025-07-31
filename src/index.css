@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* Primary Color Palette */
+    /* Primary Color Palette - Light Mode */
     --deep-blue: #003a54;
     --warm-orange: #b85a1e;
     --light-gray: #f8f8f8;
@@ -22,6 +22,22 @@
     --light-gray-dark: #e8e8e8;
     --medium-gray-light: #8a8a8a;
     --medium-gray-dark: #5a5a5a;
+    
+    /* Dynamic theme variables */
+    --bg-primary: var(--white);
+    --bg-secondary: var(--light-gray);
+    --text-primary: var(--deep-blue);
+    --text-secondary: var(--medium-gray);
+    --border-color: var(--light-gray-dark);
+  }
+
+  .dark {
+    /* Dark mode overrides */
+    --bg-primary: var(--deep-blue);
+    --bg-secondary: var(--dark-gray);
+    --text-primary: var(--white);
+    --text-secondary: var(--medium-gray-light);
+    --border-color: var(--medium-gray-dark);
   }
 
   * {
@@ -57,13 +73,15 @@
   }
 
   body {
-    color: var(--medium-gray);
-    background-color: var(--white);
+    color: var(--text-secondary);
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s, color 0.3s;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: var(--deep-blue);
+    color: var(--text-primary);
     font-weight: 700;
+    transition: color 0.3s;
   }
 }
 
@@ -119,11 +137,11 @@
 
   /* Button styles */
   .btn-primary {
-    @apply bg-warm-orange text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:bg-transparent hover:border-2 hover:border-warm-orange hover:text-warm-orange;
+    @apply bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600;
   }
 
   .btn-secondary {
-    @apply bg-transparent border-2 border-deep-blue text-deep-blue px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-deep-blue hover:text-white;
+    @apply bg-transparent border-2 border-gray-900 text-gray-900 dark:border-white dark:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900;
   }
 
   .btn-outline {
@@ -159,31 +177,31 @@
 
   /* Typography utilities */
   .heading-xl {
-    @apply text-5xl md:text-7xl font-bold text-deep-blue leading-tight;
+    @apply text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-tight;
   }
 
   .heading-lg {
-    @apply text-4xl md:text-5xl font-bold text-deep-blue leading-tight;
+    @apply text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight;
   }
 
   .heading-md {
-    @apply text-3xl md:text-4xl font-bold text-deep-blue leading-tight;
+    @apply text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight;
   }
 
   .heading-sm {
-    @apply text-2xl md:text-3xl font-bold text-deep-blue leading-tight;
+    @apply text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-tight;
   }
 
   .body-lg {
-    @apply text-lg md:text-xl text-medium-gray leading-relaxed;
+    @apply text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed;
   }
 
   .body-md {
-    @apply text-base md:text-lg text-medium-gray leading-relaxed;
+    @apply text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed;
   }
 
   .body-sm {
-    @apply text-sm md:text-base text-medium-gray leading-relaxed;
+    @apply text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed;
   }
 
   /* Animation utilities */
@@ -219,34 +237,53 @@
   }
 
   /* Dark mode overrides */
-  .dark .bg-light-gray { background-color: var(--dark-gray); }
-  .dark .text-medium-gray { color: var(--medium-gray-light); }
-  .dark .text-deep-blue { color: var(--white); }
+  .dark .bg-light-gray { background-color: var(--dark-gray) !important; }
+  .dark .text-medium-gray { color: var(--medium-gray-light) !important; }
+  .dark .text-deep-blue { color: var(--white) !important; }
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    color: var(--white);
+    color: var(--white) !important;
   }
   
+  /* Light mode text fixes */
+  .text-medium-gray { color: var(--medium-gray); }
+  .text-deep-blue { color: var(--deep-blue); }
+  .bg-light-gray { background-color: var(--light-gray); }
+  .bg-white { background-color: var(--white); }
+  
   /* Additional dark mode text fixes */
-  .dark .text-medium-gray-light { color: var(--white); }
-  .dark .text-medium-gray-dark { color: var(--medium-gray-light); }
-  .dark .text-light-gray { color: var(--white); }
+  .dark .text-medium-gray-light { color: var(--white) !important; }
+  .dark .text-medium-gray-dark { color: var(--medium-gray-light) !important; }
+  .dark .text-light-gray { color: var(--white) !important; }
   
   /* Dark mode background fixes */
-  .dark .bg-white { background-color: var(--deep-blue); }
-  .dark .bg-light-gray-dark { background-color: var(--dark-gray); }
+  .dark .bg-white { background-color: var(--deep-blue) !important; }
+  .dark .bg-light-gray-dark { background-color: var(--dark-gray) !important; }
   
   /* Dark mode border fixes */
-  .dark .border-light-gray { border-color: var(--medium-gray); }
-  .dark .border-medium-gray { border-color: var(--medium-gray-light); }
+  .dark .border-light-gray { border-color: var(--medium-gray) !important; }
+  .dark .border-medium-gray { border-color: var(--medium-gray-light) !important; }
   
   /* Dark mode card fixes */
   .dark .card { 
-    background-color: var(--deep-blue); 
-    border-color: var(--medium-gray);
+    background-color: var(--deep-blue) !important; 
+    border-color: var(--medium-gray) !important;
+    color: var(--white) !important;
   }
   .dark .card-light { 
-    background-color: var(--dark-gray); 
-    border-color: var(--medium-gray);
+    background-color: var(--dark-gray) !important; 
+    border-color: var(--medium-gray) !important;
+    color: var(--white) !important;
+  }
+  
+  /* Ensure proper contrast for all text elements */
+  .dark p, .dark span, .dark div {
+    color: var(--medium-gray-light);
+  }
+  
+  /* Fix navigation and header visibility */
+  .dark nav, .dark header {
+    background-color: var(--deep-blue) !important;
+    color: var(--white) !important;
   }
 }
 

@@ -37,10 +37,10 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl lg:text-2xl font-bold text-deep-blue dark:text-white transition-colors duration-300 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h1 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
               Collins K. Sang
             </h1>
-            <p className="text-xs lg:text-sm text-medium-gray dark:text-medium-gray-light font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <p className="text-xs lg:text-sm text-gray-600 dark:text-gray-300 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
               Advocate of the High Court
             </p>
           </div>
