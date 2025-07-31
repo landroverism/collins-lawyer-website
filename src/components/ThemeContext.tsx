@@ -21,11 +21,32 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
+    
+    // Add transition class before theme change
+    document.documentElement.style.setProperty('--transition-duration', '300ms');
+    
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
+    
+    // Ensure all theme-dependent elements update smoothly
+    const elements = document.querySelectorAll('*');
+    elements.forEach(el => {
+      if (el instanceof HTMLElement) {
+        el.style.transition = 'color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease';
+      }
+    });
+
+    // Clean up transition styles after theme change
+    setTimeout(() => {
+      elements.forEach(el => {
+        if (el instanceof HTMLElement && !el.classList.contains('no-theme-transition')) {
+          el.style.transition = '';
+        }
+      });
+    }, 300);
   }, [theme]);
 
   const toggleTheme = () => {

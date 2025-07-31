@@ -23,21 +23,37 @@
     --medium-gray-light: #8a8a8a;
     --medium-gray-dark: #5a5a5a;
     
-    /* Dynamic theme variables */
+    /* Dynamic theme variables - Light Mode */
     --bg-primary: var(--white);
     --bg-secondary: var(--light-gray);
+    --bg-tertiary: var(--light-gray-dark);
     --text-primary: var(--deep-blue);
-    --text-secondary: var(--medium-gray);
+    --text-secondary: var(--medium-gray-dark);
+    --text-tertiary: var(--medium-gray);
+    --text-muted: var(--medium-gray-light);
+    --text-contrast: var(--white);
     --border-color: var(--light-gray-dark);
+    --nav-bg: var(--white);
+    --nav-text: var(--deep-blue);
+    --card-bg: var(--white);
+    --card-text: var(--deep-blue);
   }
 
   .dark {
     /* Dark mode overrides */
-    --bg-primary: var(--deep-blue);
-    --bg-secondary: var(--dark-gray);
+    --bg-primary: var(--deep-blue-dark);
+    --bg-secondary: var(--deep-blue);
+    --bg-tertiary: var(--dark-gray);
     --text-primary: var(--white);
-    --text-secondary: var(--medium-gray-light);
+    --text-secondary: var(--light-gray);
+    --text-tertiary: var(--medium-gray-light);
+    --text-muted: var(--medium-gray);
+    --text-contrast: var(--deep-blue);
     --border-color: var(--medium-gray-dark);
+    --nav-bg: var(--deep-blue);
+    --nav-text: var(--white);
+    --card-bg: var(--deep-blue);
+    --card-text: var(--white);
   }
 
   * {
@@ -75,13 +91,24 @@
   body {
     color: var(--text-secondary);
     background-color: var(--bg-primary);
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
     font-weight: 700;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
+  }
+
+  p, span, div {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+  }
+
+  nav, header {
+    background-color: var(--nav-bg) !important;
+    color: var(--nav-text) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -135,26 +162,76 @@
   .focus\:ring-deep-blue:focus { --tw-ring-color: var(--deep-blue); }
   .focus\:ring-warm-orange:focus { --tw-ring-color: var(--warm-orange); }
 
-  /* Button styles */
+  /* Button styles with improved theme support */
   .btn-primary {
-    @apply bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600;
+    background-color: var(--warm-orange);
+    color: var(--text-contrast);
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    transform: scale(1);
+    border: 2px solid var(--warm-orange);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--warm-orange-dark);
+    border-color: var(--warm-orange-dark);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(184, 90, 30, 0.3);
   }
 
   .btn-secondary {
-    @apply bg-transparent border-2 border-gray-900 text-gray-900 dark:border-white dark:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900;
+    background-color: transparent;
+    border: 2px solid var(--text-primary);
+    color: var(--text-primary);
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
   }
 
   .btn-outline {
-    @apply bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-deep-blue;
+    background-color: transparent;
+    border: 2px solid var(--text-contrast);
+    color: var(--text-contrast);
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.3s ease;
   }
 
-  /* Link styles */
+  .btn-outline:hover {
+    background-color: var(--text-contrast);
+    color: var(--text-contrast);
+  }
+
+  /* Link styles with proper contrast */
   .link-primary {
-    @apply text-warm-orange transition-all duration-300 hover:underline hover:text-warm-orange-dark;
+    color: var(--warm-orange);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .link-primary:hover {
+    color: var(--warm-orange-dark);
+    text-decoration: underline;
   }
 
   .link-secondary {
-    @apply text-deep-blue transition-all duration-300 hover:underline hover:text-deep-blue-light;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .link-secondary:hover {
+    color: var(--warm-orange);
+    text-decoration: underline;
   }
 
   /* Section dividers */
@@ -175,33 +252,58 @@
     @apply bg-light-gray rounded-lg p-8 transition-all duration-300 hover:shadow-lg;
   }
 
-  /* Typography utilities */
+  /* Typography utilities with proper theme variables */
   .heading-xl {
-    @apply text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-tight;
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    line-height: 1.1;
+    transition: color 0.3s ease;
   }
 
   .heading-lg {
-    @apply text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight;
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    line-height: 1.2;
+    transition: color 0.3s ease;
   }
 
   .heading-md {
-    @apply text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    line-height: 1.3;
+    transition: color 0.3s ease;
   }
 
   .heading-sm {
-    @apply text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-tight;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    line-height: 1.4;
+    transition: color 0.3s ease;
   }
 
   .body-lg {
-    @apply text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed;
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    color: var(--text-secondary) !important;
+    line-height: 1.6;
+    transition: color 0.3s ease;
   }
 
   .body-md {
-    @apply text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed;
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    color: var(--text-secondary) !important;
+    line-height: 1.6;
+    transition: color 0.3s ease;
   }
 
   .body-sm {
-    @apply text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    color: var(--text-tertiary) !important;
+    line-height: 1.5;
+    transition: color 0.3s ease;
   }
 
   /* Animation utilities */
@@ -236,54 +338,73 @@
     @apply py-12 md:py-16;
   }
 
-  /* Dark mode overrides */
-  .dark .bg-light-gray { background-color: var(--dark-gray) !important; }
-  .dark .text-medium-gray { color: var(--medium-gray-light) !important; }
-  .dark .text-deep-blue { color: var(--white) !important; }
-  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    color: var(--white) !important;
+  /* Theme-aware utility classes */
+  .theme-bg-primary { background-color: var(--bg-primary); }
+  .theme-bg-secondary { background-color: var(--bg-secondary); }
+  .theme-bg-tertiary { background-color: var(--bg-tertiary); }
+  .theme-bg-card { background-color: var(--card-bg); }
+  .theme-bg-nav { background-color: var(--nav-bg); }
+
+  .theme-text-primary { color: var(--text-primary) !important; }
+  .theme-text-secondary { color: var(--text-secondary) !important; }
+  .theme-text-tertiary { color: var(--text-tertiary) !important; }
+  .theme-text-muted { color: var(--text-muted) !important; }
+  .theme-text-card { color: var(--card-text) !important; }
+  .theme-text-nav { color: var(--nav-text) !important; }
+
+  .theme-border { border-color: var(--border-color); }
+
+  /* Card styles with proper theming */
+  .card {
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
   }
-  
-  /* Light mode text fixes */
-  .text-medium-gray { color: var(--medium-gray); }
-  .text-deep-blue { color: var(--deep-blue); }
-  .bg-light-gray { background-color: var(--light-gray); }
-  .bg-white { background-color: var(--white); }
-  
-  /* Additional dark mode text fixes */
-  .dark .text-medium-gray-light { color: var(--white) !important; }
-  .dark .text-medium-gray-dark { color: var(--medium-gray-light) !important; }
-  .dark .text-light-gray { color: var(--white) !important; }
-  
-  /* Dark mode background fixes */
-  .dark .bg-white { background-color: var(--deep-blue) !important; }
-  .dark .bg-light-gray-dark { background-color: var(--dark-gray) !important; }
-  
-  /* Dark mode border fixes */
-  .dark .border-light-gray { border-color: var(--medium-gray) !important; }
-  .dark .border-medium-gray { border-color: var(--medium-gray-light) !important; }
-  
-  /* Dark mode card fixes */
-  .dark .card { 
-    background-color: var(--deep-blue) !important; 
-    border-color: var(--medium-gray) !important;
-    color: var(--white) !important;
+
+  .card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-2px);
   }
-  .dark .card-light { 
-    background-color: var(--dark-gray) !important; 
-    border-color: var(--medium-gray) !important;
-    color: var(--white) !important;
+
+  .card-light {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    transition: all 0.3s ease;
   }
-  
-  /* Ensure proper contrast for all text elements */
-  .dark p, .dark span, .dark div {
-    color: var(--medium-gray-light);
+
+  /* Navigation specific styles */
+  .nav-item {
+    color: var(--nav-text) !important;
+    transition: color 0.3s ease;
   }
-  
-  /* Fix navigation and header visibility */
-  .dark nav, .dark header {
-    background-color: var(--deep-blue) !important;
-    color: var(--white) !important;
+
+  .nav-item:hover {
+    color: var(--warm-orange) !important;
+  }
+
+  /* Ensure proper text contrast in all contexts */
+  .theme-contrast-text {
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Form elements theming */
+  .theme-input {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  .theme-input:focus {
+    border-color: var(--warm-orange);
+    box-shadow: 0 0 0 3px rgba(184, 90, 30, 0.1);
   }
 }
 
