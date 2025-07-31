@@ -32,7 +32,7 @@ export function Hero() {
           <div className="mb-12 slide-up">
             <div className="w-56 h-56 mx-auto rounded-full overflow-hidden shadow-2xl scale-hover border-4 border-warm-orange">
               <img 
-                src="/attached_assets/collins-pic_1753989356768.jpeg" 
+                src="/collins-profile.jpg" 
                 alt="Collins K. Sang - Advocate of the High Court of Kenya"
                 className="w-full h-full object-cover"
               />

@@ -80,7 +80,7 @@ export function About() {
               {/* Professional photo */}
               <div className="w-full h-96 rounded-2xl overflow-hidden shadow-2xl scale-hover-sm">
                 <img 
-                  src="/attached_assets/collins-pic_1753989356768.jpeg" 
+                  src="/collins-profile.jpg" 
                   alt="Collins K. Sang - Advocate of the High Court of Kenya"
                   className="w-full h-full object-cover"
                 />
