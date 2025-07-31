@@ -80,16 +80,10 @@ export function About() {
               {/* Professional photo */}
               <div className="w-full h-96 rounded-2xl overflow-hidden shadow-2xl scale-hover-sm">
                 <img 
-                  src="/collins-profile.jpg" 
+                  src="/images/collins-pic.jpeg" 
                   alt="Collins K. Sang - Advocate of the High Court of Kenya"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-deep-blue/80 via-transparent to-transparent flex items-end">
-                  <div className="text-center w-full p-6 text-white">
-                    <p className="text-xl font-medium">Collins K. Sang</p>
-                    <p className="text-lg opacity-90">Advocate of the High Court of Kenya</p>
-                  </div>
-                </div>
               </div>
               
               {/* Decorative elements */}

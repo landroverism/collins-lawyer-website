@@ -78,8 +78,15 @@ export function BlogManager() {
 
       {/* Enhanced Create Form Modal */}
       {showCreateForm && (
-        <div className="modal-overlay">
-          <div className="modal-container">
+        <div
+          className="modal-overlay"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowCreateForm(false);
+            }
+          }}
+        >
+          <div className="modal-container" onMouseDown={(e) => e.stopPropagation()}>
             {/* Modal Header */}
             <div className="modal-header">
               <div className="flex justify-between items-center">

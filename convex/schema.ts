@@ -109,6 +109,15 @@ const applicationTables = {
     notes: v.optional(v.string()),
   }).index("by_client", ["clientEmail"])
     .index("by_status", ["status"]),
+
+  // Users table
+  users: defineTable({
+    name: v.string(),
+    email: v.string(),
+    password: v.string(), // Added password field
+    role: v.string(), // Added role field
+    createdAt: v.number(),
+  }),
 };
 
 export default defineSchema({

@@ -180,16 +180,15 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
       {/* Sign In Modal */}
       {showSignIn && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 fade-in">
-          <div className="bg-white dark:bg-deep-blue p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl slide-up">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-deep-blue dark:text-white">Admin Sign In</h2>
-              <button
-                onClick={() => setShowSignIn(false)}
-                className="text-medium-gray hover:text-warm-orange transition-colors duration-300 text-2xl scale-hover-sm"
-              >
-                ✕
-              </button>
-            </div>
+          <div className="bg-white dark:bg-deep-blue p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl slide-up relative">
+            <button
+              onClick={() => setShowSignIn(false)}
+              className="absolute top-2 right-2 text-medium-gray hover:text-warm-orange transition-colors duration-300 text-2xl scale-hover-sm"
+              style={{ zIndex: 100 }}
+            >
+              ✕
+            </button>
+            <h2 className="text-2xl font-bold text-deep-blue dark:text-white mb-6">Admin Sign In</h2>
             <SignInForm />
           </div>
         </div>

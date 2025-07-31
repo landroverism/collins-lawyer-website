@@ -10,6 +10,7 @@ import { AdminDashboard } from "./components/AdminDashboard";
 export default function App() {
   const loggedInUser = useQuery(api.auth.loggedInUser);
   const [showAdmin, setShowAdmin] = useState(false);
+  const isAdmin = loggedInUser?.role === "admin"; // Determine if the user is an admin
 
   return (
     <div className="min-h-screen">
@@ -18,7 +19,7 @@ export default function App() {
           <AdminDashboard onBackToSite={() => setShowAdmin(false)} />
         ) : (
           <LawFirmWebsite 
-            isAdmin={!!loggedInUser} 
+            isAdmin={isAdmin} 
             onAdminAccess={() => setShowAdmin(true)} 
           />
         )}

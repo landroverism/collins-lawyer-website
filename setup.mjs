@@ -8,6 +8,8 @@
 import fs from "fs";
 import { config as loadEnvFile } from "dotenv";
 import { spawnSync } from "child_process";
+import { createDefaultAdmin } from "./convex/auth.js";
+import { ConvexHttpClient } from "convex/browser";
 
 if (!fs.existsSync(".env.local")) {
   // Something is off, skip the script.
@@ -34,5 +36,13 @@ SETUP_SCRIPT_RAN=1
 `, { flag: "a" });
 }
 
+const client = new ConvexHttpClient("http://localhost:8181"); // Replace with your Convex server URL
+
+try {
+  await client.mutation(createDefaultAdmin)();
+  console.log("Default admin user ensured.");
+} catch (error) {
+  console.error("Failed to create default admin user:", error);
+}
 
 process.exit(result.status);

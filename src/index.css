@@ -411,21 +411,17 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes slideUp {
   from {
-    opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(20px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -496,6 +492,7 @@ html {
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+  animation: fadeIn 0.3s ease-out, slideUp 0.3s ease-out;
 }
 
 .dark .modal-container {
@@ -558,4 +555,32 @@ html {
 .dark .modal-footer {
   border-top-color: var(--medium-gray);
   background: var(--dark-gray);
+}
+
+/* Adjust modal positioning to ensure full visibility */
+.fixed-modal {
+  position: fixed;
+  top: 20%; /* Adjusted to appear further down from the top */
+  left: 50%;
+  transform: translate(-50%, 0); /* Removed vertical centering to ensure visibility */
+  z-index: 9999;
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 30rem;
+  width: 90%;
+  max-height: 90vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.dark .fixed-modal {
+  background: var(--deep-blue);
+}
+
+/* Ensure parent containers do not hide the modal */
+body {
+  overflow: visible; /* Allow modal to be visible */
 }
