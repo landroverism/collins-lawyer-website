@@ -28,10 +28,14 @@ export function Hero() {
 
       <div className="relative z-10 container-custom text-center fade-in">
         <div className="max-w-5xl mx-auto">
-          {/* Professional Photo Placeholder */}
+          {/* Professional Photo */}
           <div className="mb-12 slide-up">
-            <div className="w-56 h-56 mx-auto rounded-full bg-gradient-to-br from-warm-orange to-warm-orange-dark flex items-center justify-center text-7xl font-special text-white shadow-2xl scale-hover">
-              CKS
+            <div className="w-56 h-56 mx-auto rounded-full overflow-hidden shadow-2xl scale-hover border-4 border-warm-orange">
+              <img 
+                src="/attached_assets/collins-pic_1753989356768.jpeg" 
+                alt="Collins K. Sang - Advocate of the High Court of Kenya"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 

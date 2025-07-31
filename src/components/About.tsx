@@ -77,12 +77,18 @@ export function About() {
           {/* Image/Visual */}
           <div className="slide-up">
             <div className="relative">
-              {/* Professional photo placeholder */}
-              <div className="w-full h-96 bg-gradient-to-br from-deep-blue to-deep-blue-light rounded-2xl flex items-center justify-center text-white shadow-2xl scale-hover-sm">
-                <div className="text-center">
-                  <div className="text-8xl font-special text-warm-orange mb-4">⚖️</div>
-                  <p className="text-xl font-medium">Collins K. Sang</p>
-                  <p className="text-lg opacity-90">Advocate of the High Court of Kenya</p>
+              {/* Professional photo */}
+              <div className="w-full h-96 rounded-2xl overflow-hidden shadow-2xl scale-hover-sm">
+                <img 
+                  src="/attached_assets/collins-pic_1753989356768.jpeg" 
+                  alt="Collins K. Sang - Advocate of the High Court of Kenya"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-blue/80 via-transparent to-transparent flex items-end">
+                  <div className="text-center w-full p-6 text-white">
+                    <p className="text-xl font-medium">Collins K. Sang</p>
+                    <p className="text-lg opacity-90">Advocate of the High Court of Kenya</p>
+                  </div>
                 </div>
               </div>
               
