@@ -39,23 +39,6 @@
     --card-text: var(--deep-blue);
   }
 
-  .dark {
-    /* Dark mode overrides */
-    --bg-primary: var(--deep-blue-dark);
-    --bg-secondary: var(--deep-blue);
-    --bg-tertiary: var(--dark-gray);
-    --text-primary: var(--white);
-    --text-secondary: var(--light-gray);
-    --text-tertiary: var(--medium-gray-light);
-    --text-muted: var(--medium-gray);
-    --text-contrast: var(--deep-blue);
-    --border-color: var(--medium-gray-dark);
-    --nav-bg: var(--deep-blue);
-    --nav-text: var(--white);
-    --card-bg: var(--deep-blue);
-    --card-text: var(--white);
-  }
-
   * {
     font-family: 'Montserrat', sans-serif;
   }
@@ -68,10 +51,6 @@
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     color: var(--deep-blue);
-  }
-
-  .dark .font-handwriting {
-    color: var(--white);
   }
 
   /* Ensure font loading and visibility */
@@ -287,21 +266,18 @@
 
   .body-lg {
     font-size: clamp(1.125rem, 2vw, 1.25rem);
-    color: var(--text-secondary) !important;
     line-height: 1.6;
     transition: color 0.3s ease;
   }
 
   .body-md {
     font-size: clamp(1rem, 1.5vw, 1.125rem);
-    color: var(--text-secondary) !important;
     line-height: 1.6;
     transition: color 0.3s ease;
   }
 
   .body-sm {
     font-size: clamp(0.875rem, 1.2vw, 1rem);
-    color: var(--text-tertiary) !important;
     line-height: 1.5;
     transition: color 0.3s ease;
   }
@@ -318,8 +294,6 @@
   .scale-hover {
     @apply transition-transform duration-300 hover:scale-110;
   }
-
-
 
   .scale-hover-sm {
     @apply transition-transform duration-300 hover:scale-105;
@@ -440,10 +414,6 @@ html {
   background: var(--light-gray);
 }
 
-.dark ::-webkit-scrollbar-track {
-  background: var(--dark-gray);
-}
-
 ::-webkit-scrollbar-thumb {
   background: var(--medium-gray);
   border-radius: 4px;
@@ -495,20 +465,11 @@ html {
   animation: fadeIn 0.3s ease-out, slideUp 0.3s ease-out;
 }
 
-.dark .modal-container {
-  background: var(--deep-blue);
-}
-
 .modal-header {
   flex-shrink: 0;
   padding: 1.5rem;
   border-bottom: 1px solid var(--light-gray);
   background: var(--light-gray);
-}
-
-.dark .modal-header {
-  border-bottom-color: var(--medium-gray);
-  background: var(--dark-gray);
 }
 
 .modal-body {
@@ -519,10 +480,6 @@ html {
   scrollbar-color: var(--warm-orange) var(--light-gray);
 }
 
-.dark .modal-body {
-  scrollbar-color: var(--warm-orange) var(--dark-gray);
-}
-
 .modal-body::-webkit-scrollbar {
   width: 6px;
 }
@@ -530,10 +487,6 @@ html {
 .modal-body::-webkit-scrollbar-track {
   background: var(--light-gray);
   border-radius: 3px;
-}
-
-.dark .modal-body::-webkit-scrollbar-track {
-  background: var(--dark-gray);
 }
 
 .modal-body::-webkit-scrollbar-thumb {
@@ -550,11 +503,6 @@ html {
   padding: 1.5rem;
   border-top: 1px solid var(--light-gray);
   background: var(--light-gray);
-}
-
-.dark .modal-footer {
-  border-top-color: var(--medium-gray);
-  background: var(--dark-gray);
 }
 
 /* Adjust modal positioning to ensure full visibility */
@@ -574,10 +522,6 @@ html {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-}
-
-.dark .fixed-modal {
-  background: var(--deep-blue);
 }
 
 /* Ensure parent containers do not hide the modal */

@@ -11,94 +11,81 @@ interface AdminDashboardProps {
   onBackToSite: () => void;
 }
 
+type AdminTab = "blog" | "contact" | "practice" | "testimonials" | "settings";
+
 export function AdminDashboard({ onBackToSite }: AdminDashboardProps) {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState<AdminTab>("blog");
 
   const tabs = [
-    { id: "overview", name: "Overview", icon: "📊" },
-    { id: "blog", name: "Blog Posts", icon: "📝" },
-    { id: "practice", name: "Practice Areas", icon: "⚖️" },
-    { id: "testimonials", name: "Testimonials", icon: "💬" },
-    { id: "contacts", name: "Contact Forms", icon: "📧" },
-    { id: "settings", name: "Settings", icon: "⚙️" },
+    { id: "blog" as AdminTab, label: "Blog Posts", icon: "📝" },
+    { id: "contact" as AdminTab, label: "Contact Messages", icon: "📧" },
+    { id: "practice" as AdminTab, label: "Practice Areas", icon: "⚖️" },
+    { id: "testimonials" as AdminTab, label: "Testimonials", icon: "⭐" },
+    { id: "settings" as AdminTab, label: "Settings", icon: "⚙️" },
   ];
 
-  const renderContent = () => {
+  const renderTabContent = () => {
     switch (activeTab) {
-      case "overview":
-        return <OverviewTab />;
       case "blog":
         return <BlogManager />;
+      case "contact":
+        return <ContactManager />;
       case "practice":
         return <PracticeAreaManager />;
       case "testimonials":
         return <TestimonialManager />;
-      case "contacts":
-        return <ContactManager />;
       case "settings":
-        return <SettingsManager user={{ id: "admin", role: "admin" }} />;
+        return <SettingsManager />;
       default:
-        return <OverviewTab />;
+        return <BlogManager />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-light-gray dark:bg-dark-gray">
+    <div className="min-h-screen bg-light-gray">
       {/* Header */}
-      <div className="bg-white dark:bg-deep-blue shadow-lg border-b-4 border-warm-orange">
-        <div className="container-custom">
-          <div className="flex justify-between items-center h-20">
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
+              <h1 className="text-xl font-bold text-deep-blue">Admin Dashboard</h1>
+            </div>
+            <button
+              onClick={onBackToSite}
+              className="mr-6 px-6 py-3 text-sm bg-light-gray hover:bg-warm-orange hover:text-white rounded-full transition-all duration-300 font-medium"
+            >
+              ← Back to Site
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Navigation Tabs */}
+      <nav className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex space-x-8">
+            {tabs.map((tab) => (
               <button
-                onClick={onBackToSite}
-                className="mr-6 px-6 py-3 text-sm bg-light-gray dark:bg-medium-gray hover:bg-warm-orange hover:text-white rounded-full transition-all duration-300 font-medium"
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`py-4 px-1 border-b-2 font-medium text-sm transition-all duration-300 ${
+                  activeTab === tab.id
+                    ? "border-warm-orange text-warm-orange"
+                    : "text-medium-gray hover:text-warm-orange border-transparent hover:border-warm-orange"
+                }`}
               >
-                ← Back to Site
+                <span className="mr-2">{tab.icon}</span>
+                {tab.label}
               </button>
-              <h1 className="text-2xl font-bold text-deep-blue dark:text-white">
-                Admin Dashboard
-              </h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-medium-gray dark:text-medium-gray-light">
-                Welcome, Admin
-              </span>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      </nav>
 
-      <div className="container-custom py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Sidebar */}
-          <div className="lg:w-80 flex-shrink-0">
-            <nav className="card p-6">
-              <ul className="space-y-3">
-                {tabs.map((tab) => (
-                  <li key={tab.id}>
-                    <button
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`w-full flex items-center px-6 py-4 text-left rounded-full transition-all duration-300 font-medium ${
-                        activeTab === tab.id
-                          ? "bg-warm-orange text-white shadow-lg"
-                          : "text-medium-gray dark:text-medium-gray-light hover:bg-light-gray dark:hover:bg-medium-gray hover:text-warm-orange"
-                      }`}
-                    >
-                      <span className="mr-4 text-xl">{tab.icon}</span>
-                      {tab.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1">
-            <div className="card">{renderContent()}</div>
-          </div>
-        </div>
-      </div>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {renderTabContent()}
+      </main>
     </div>
   );
 }

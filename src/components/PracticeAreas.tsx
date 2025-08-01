@@ -61,9 +61,9 @@ export function PracticeAreas() {
   ];
 
   return (
-    <section id="practice" className="section-padding bg-white dark:bg-deep-blue">
+    <section id="practice" className="section-padding bg-white">
       <div className="container-custom">
-        <div className="text-center mb-16 fade-in">
+        <div className="text-center mb-16">
           <div className="section-divider"></div>
           <h2 className="heading-lg mb-6">Practice Areas</h2>
           <p className="body-lg max-w-3xl mx-auto">
@@ -75,8 +75,7 @@ export function PracticeAreas() {
           {practiceAreas.map((area, index) => (
             <div 
               key={index} 
-              className="card group slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="card group"
             >
               <div className="text-center">
                 <div className="text-5xl mb-6 scale-hover group-hover:text-warm-orange transition-colors duration-300">
@@ -91,41 +90,55 @@ export function PracticeAreas() {
                 
                 {/* Services List */}
                 <div className="text-left mb-6">
-                  <h4 className="font-semibold text-deep-blue dark:text-white mb-3 text-sm">Services Include:</h4>
+                  <h4 className="font-semibold text-deep-blue mb-3 text-sm">Services Include:</h4>
                   <ul className="space-y-1">
                     {area.services.map((service, serviceIndex) => (
-                      <li key={serviceIndex} className="text-sm text-medium-gray dark:text-medium-gray-light flex items-center">
+                      <li key={serviceIndex} className="text-sm text-medium-gray flex items-center">
                         <span className="text-warm-orange mr-2">•</span>
                         {service}
                       </li>
                     ))}
                   </ul>
                 </div>
-                
-                <button className="link-primary font-semibold">
-                  {t("learnMore")} →
+
+                {/* CTA Button */}
+                <button 
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  className="btn-secondary w-full"
+                >
+                  {t("consultNow")}
                 </button>
               </div>
-              
-              {/* Decorative border */}
-              <div className="absolute bottom-0 left-0 w-0 h-1 bg-warm-orange transition-all duration-500 group-hover:w-full"></div>
             </div>
           ))}
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16 fade-in">
-          <div className="bg-light-gray dark:bg-medium-gray rounded-2xl p-12">
-            <h3 className="heading-md mb-6">{t("needLegalHelp")}</h3>
-            <p className="body-lg mb-8 max-w-2xl mx-auto">
-              {t("needLegalHelpDescription")}
-            </p>
-            <button 
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="btn-primary"
-            >
-              {t("getStarted")}
-            </button>
+        {/* Call to Action Section */}
+        <div className="mt-20">
+          <div className="bg-light-gray rounded-2xl p-12">
+            <div className="text-center">
+              <h3 className="heading-md mb-6 text-deep-blue">
+                Need Legal Assistance?
+              </h3>
+              <p className="body-lg text-medium-gray mb-8 max-w-2xl mx-auto">
+                Whether you need legal advice, representation, or consultation, I'm here to help. 
+                Contact me today for a confidential discussion about your legal needs.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button 
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  className="btn-primary"
+                >
+                  {t("scheduleConsultation")}
+                </button>
+                <button 
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  className="btn-secondary"
+                >
+                  {t("contactNow")}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

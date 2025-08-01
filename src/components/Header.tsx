@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLanguage } from "./LanguageContext";
-import { useTheme } from "./ThemeContext";
 
 interface HeaderProps {
   isAdmin: boolean;
@@ -9,7 +8,6 @@ interface HeaderProps {
 
 export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
   const { language, setLanguage, t } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const languages = [
@@ -29,15 +27,15 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-deep-blue/95 backdrop-blur-sm border-b border-gray-200 dark:border-medium-gray shadow-sm transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm transition-all duration-300">
       <div className="container-custom">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl lg:text-2xl font-bold text-deep-blue dark:text-white transition-colors duration-300 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h1 className="text-xl lg:text-2xl font-bold text-deep-blue transition-colors duration-300 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
               Collins K. Sang
             </h1>
-            <p className="text-xs lg:text-sm text-gray-700 dark:text-gray-300 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <p className="text-xs lg:text-sm text-gray-700 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
               Advocate of the High Court
             </p>
           </div>
@@ -55,7 +53,7 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
               <button
                 key={item.key}
                 onClick={() => scrollToSection(item.id)}
-                className="text-gray-700 dark:text-medium-gray-light hover:text-warm-orange dark:hover:text-warm-orange transition-all duration-300 font-medium relative group text-sm xl:text-base px-2 py-1"
+                className="text-gray-700 hover:text-warm-orange transition-all duration-300 font-medium relative group text-sm xl:text-base px-2 py-1"
               >
                 {t(item.key)}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-warm-orange transition-all duration-300 group-hover:w-full"></span>
@@ -70,40 +68,21 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="bg-white dark:bg-transparent border-2 border-gray-300 dark:border-medium-gray rounded-full px-3 py-2 text-xs lg:text-sm focus:outline-none focus:ring-2 focus:ring-warm-orange transition-all duration-300 text-gray-700 dark:text-medium-gray-light"
+                className="bg-white border-2 border-gray-300 rounded-full px-3 py-2 text-xs lg:text-sm focus:outline-none focus:ring-2 focus:ring-warm-orange transition-all duration-300 text-gray-700"
               >
                 {languages.map((lang) => (
-                  <option key={lang.code} value={lang.code} className="bg-white dark:bg-deep-blue text-gray-700 dark:text-white">
+                  <option key={lang.code} value={lang.code} className="bg-white text-gray-700">
                     {lang.flag} {lang.name}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="relative inline-flex h-8 w-16 lg:h-10 lg:w-20 items-center rounded-full bg-gray-200 dark:bg-medium-gray transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-warm-orange scale-hover-sm"
-              title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
-            >
-              <span
-                className={`inline-block h-6 w-6 lg:h-8 lg:w-8 transform rounded-full bg-white dark:bg-deep-blue transition-all duration-300 flex items-center justify-center shadow-lg ${
-                  theme === "dark" ? "translate-x-9 lg:translate-x-11" : "translate-x-1"
-                }`}
-              >
-                {theme === "light" ? (
-                  <span className="text-warm-orange text-sm lg:text-lg">☀</span>
-                ) : (
-                  <span className="text-warm-orange text-sm lg:text-lg">☾</span>
-                )}
-              </span>
-            </button>
-
             {/* Admin Access */}
             {isAdmin && (
               <button
                 onClick={onAdminAccess}
-                className="px-3 py-2 lg:px-6 lg:py-2 bg-deep-blue text-white rounded-full hover:bg-gray-100 hover:border-2 hover:border-deep-blue hover:text-deep-blue dark:hover:bg-transparent transition-all duration-300 font-medium text-xs lg:text-sm"
+                className="px-3 py-2 lg:px-6 lg:py-2 bg-deep-blue text-white rounded-full hover:bg-gray-100 hover:border-2 hover:border-deep-blue hover:text-deep-blue transition-all duration-300 font-medium text-xs lg:text-sm"
               >
                 Admin Panel
               </button>
@@ -112,9 +91,9 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
             {/* Mobile menu button */}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="lg:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-medium-gray transition-all duration-300 scale-hover-sm"
+              className="lg:hidden p-2 rounded-full hover:bg-gray-100 transition-all duration-300 scale-hover-sm"
             >
-              <svg className="w-6 h-6 text-gray-700 dark:text-medium-gray-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -123,17 +102,17 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {showMobileMenu && (
-          <div className="lg:hidden py-6 border-t border-gray-200 dark:border-medium-gray fade-in bg-white dark:bg-deep-blue">
+          <div className="lg:hidden py-6 border-t border-gray-200 fade-in bg-white">
             <div className="space-y-4">
               {/* Mobile Language Selector */}
               <div className="mb-6">
                 <select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="w-full bg-white dark:bg-transparent border-2 border-gray-300 dark:border-medium-gray rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-warm-orange transition-all duration-300 text-gray-700 dark:text-medium-gray-light"
+                  className="w-full bg-white border-2 border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-warm-orange transition-all duration-300 text-gray-700"
                 >
                   {languages.map((lang) => (
-                    <option key={lang.code} value={lang.code} className="bg-white dark:bg-deep-blue text-gray-700 dark:text-white">
+                    <option key={lang.code} value={lang.code} className="bg-white text-gray-700">
                       {lang.flag} {lang.name}
                     </option>
                   ))}
@@ -153,7 +132,7 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
                   <button
                     key={item.key}
                     onClick={() => scrollToSection(item.id)}
-                    className="text-left px-4 py-3 text-gray-700 dark:text-medium-gray-light hover:text-warm-orange dark:hover:text-warm-orange hover:bg-gray-100 dark:hover:bg-medium-gray transition-all duration-300 font-medium rounded-lg text-sm"
+                    className="text-left px-4 py-3 text-gray-700 hover:text-warm-orange hover:bg-gray-100 transition-all duration-300 font-medium rounded-lg text-sm"
                   >
                     {t(item.key)}
                   </button>
@@ -164,7 +143,7 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
               {isAdmin && (
                 <button
                   onClick={onAdminAccess}
-                  className="w-full px-4 py-3 bg-deep-blue text-white rounded-lg hover:bg-gray-100 hover:border-2 hover:border-deep-blue hover:text-deep-blue dark:hover:bg-transparent transition-all duration-300 font-medium text-sm"
+                  className="w-full px-4 py-3 bg-deep-blue text-white rounded-lg hover:bg-gray-100 hover:border-2 hover:border-deep-blue hover:text-deep-blue transition-all duration-300 font-medium text-sm"
                 >
                   Admin Panel
                 </button>

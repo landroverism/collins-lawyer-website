@@ -11,7 +11,18 @@ export function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-blue via-deep-blue-light to-deep-blue-dark text-white overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+      {/* Background Image - Cover entire section */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/images/collins-mic.jpeg')`
+        }}
+      ></div>
+      
+      {/* Dark Overlay for Text Readability */}
+      <div className="absolute inset-0 bg-deep-blue/85"></div>
+
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div 
@@ -80,15 +91,15 @@ export function Hero() {
           <div className="slide-up grid grid-cols-1 md:grid-cols-3 gap-8 text-center" style={{ animationDelay: '1s' }}>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 card-light border border-warm-orange/20">
               <div className="text-5xl font-special text-warm-orange mb-4">⚖️</div>
-              <div className="text-gray-300 font-medium">Advocate of the High Court</div>
+              <div className="text-deep-blue font-medium">Advocate of the High Court</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 card-light border border-warm-orange/20">
               <div className="text-5xl font-special text-warm-orange mb-4">🎓</div>
-              <div className="text-gray-300 font-medium">Post-Graduate Diploma in Law</div>
+              <div className="text-deep-blue font-medium">Post-Graduate Diploma in Law</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 card-light border border-warm-orange/20">
               <div className="text-5xl font-special text-warm-orange mb-4">🏢</div>
-              <div className="text-gray-300 font-medium">Head of Legal Research & Drafting</div>
+              <div className="text-deep-blue font-medium">Head of Legal Research & Drafting</div>
             </div>
           </div>
         </div>

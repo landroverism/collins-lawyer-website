@@ -10,7 +10,6 @@ import { Blog } from "./Blog";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
 import { LanguageProvider } from "./LanguageContext";
-import { ThemeProvider } from "./ThemeContext";
 
 interface LawFirmWebsiteProps {
   isAdmin: boolean;
@@ -20,21 +19,19 @@ interface LawFirmWebsiteProps {
 
 export function LawFirmWebsite({ isAdmin, onAdminAccess, onSetAdminAccess }: LawFirmWebsiteProps) {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-          <Header isAdmin={isAdmin} onAdminAccess={onAdminAccess} />
-          <main>
-            <Hero />
-            <About />
-            <PracticeAreas />
-            <Testimonials />
-            <Blog />
-            <Contact />
-          </main>
-          <Footer onSetAdminAccess={onSetAdminAccess} />
-        </div>
-      </LanguageProvider>
-    </ThemeProvider>
+    <LanguageProvider>
+      <div className="min-h-screen bg-white transition-colors">
+        <Header isAdmin={isAdmin} onAdminAccess={onAdminAccess} />
+        <main>
+          <Hero />
+          <About />
+          <PracticeAreas />
+          <Testimonials />
+          <Blog />
+          <Contact />
+        </main>
+        <Footer onSetAdminAccess={onSetAdminAccess} />
+      </div>
+    </LanguageProvider>
   );
 }
