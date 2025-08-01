@@ -1,10 +1,30 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
-import { getAuthUserId } from "@convex-dev/auth/server";
 
 // Get all active practice areas
 export const getActivePracticeAreas = query({
   args: { language: v.optional(v.string()) },
+  returns: v.array(v.object({
+    _id: v.id("practiceAreas"),
+    _creationTime: v.number(),
+    title: v.union(v.string(), v.object({
+      en: v.string(),
+      sw: v.optional(v.string()),
+      fr: v.optional(v.string()),
+      de: v.optional(v.string()),
+      es: v.optional(v.string()),
+    })),
+    description: v.union(v.string(), v.object({
+      en: v.string(),
+      sw: v.optional(v.string()),
+      fr: v.optional(v.string()),
+      de: v.optional(v.string()),
+      es: v.optional(v.string()),
+    })),
+    icon: v.string(),
+    order: v.number(),
+    active: v.boolean(),
+  })),
   handler: async (ctx, args) => {
     const areas = await ctx.db
       .query("practiceAreas")
@@ -40,12 +60,8 @@ export const createPracticeArea = mutation({
     icon: v.string(),
     order: v.number(),
   },
+  returns: v.id("practiceAreas"),
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to create practice areas");
-    }
-
     return await ctx.db.insert("practiceAreas", {
       ...args,
       active: true,
@@ -56,12 +72,28 @@ export const createPracticeArea = mutation({
 // Admin: Get all practice areas
 export const getAllPracticeAreas = query({
   args: {},
+  returns: v.array(v.object({
+    _id: v.id("practiceAreas"),
+    _creationTime: v.number(),
+    title: v.object({
+      en: v.string(),
+      sw: v.optional(v.string()),
+      fr: v.optional(v.string()),
+      de: v.optional(v.string()),
+      es: v.optional(v.string()),
+    }),
+    description: v.object({
+      en: v.string(),
+      sw: v.optional(v.string()),
+      fr: v.optional(v.string()),
+      de: v.optional(v.string()),
+      es: v.optional(v.string()),
+    }),
+    icon: v.string(),
+    order: v.number(),
+    active: v.boolean(),
+  })),
   handler: async (ctx) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to view all practice areas");
-    }
-
     return await ctx.db
       .query("practiceAreas")
       .withIndex("by_order")

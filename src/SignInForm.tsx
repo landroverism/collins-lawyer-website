@@ -2,15 +2,22 @@
 import { api } from "../convex/_generated/api";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useMutation } from "convex/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 export function SignInForm() {
   const signInMutation = useMutation(api.auth.signIn);
   const signUpMutation = useMutation(api.auth.signUp);
+  const createAdminMutation = useMutation(api.auth.createAdminUser);
+  const ensureAdminMutation = useMutation(api.auth.ensureDefaultAdmin);
   const { signIn } = useAuthActions();
-  const [flow, setFlow] = useState<"signIn" | "signUp">("signIn");
+  const [flow, setFlow] = useState<"signIn" | "signUp" | "createAdmin">("signIn");
   const [submitting, setSubmitting] = useState(false);
+
+  // Ensure default admin exists on component mount
+  useEffect(() => {
+    ensureAdminMutation({}).catch(console.error);
+  }, [ensureAdminMutation]);
 
   return (
     <div className="fixed-modal">
@@ -31,11 +38,17 @@ export function SignInForm() {
                 await signIn(response.userId);
                 toast.success("Signed in successfully!");
               }
-            } else {
+            } else if (flow === "signUp") {
               const response = await signUpMutation({ email, password });
               if (response?.userId) {
                 await signIn(response.userId);
                 toast.success("Sign-up successful!");
+              }
+            } else if (flow === "createAdmin") {
+              const response = await createAdminMutation({ email, password });
+              if (response?.userId) {
+                await signIn(response.userId);
+                toast.success(`Admin user ${response.message}!`);
               }
             }
           } catch (err) {
@@ -66,20 +79,36 @@ export function SignInForm() {
           type="submit"
           disabled={submitting}
         >
-          {submitting ? "Signing In..." : flow === "signIn" ? "Sign In" : "Sign Up"}
+          {submitting 
+            ? "Processing..." 
+            : flow === "signIn" 
+              ? "Sign In" 
+              : flow === "signUp" 
+                ? "Sign Up" 
+                : "Create Admin"}
         </button>
         <div className="text-center text-sm text-secondary">
           <span>
             {flow === "signIn"
               ? "Don't have an account? "
-              : "Already have an account? "}
+              : flow === "signUp"
+                ? "Already have an account? "
+                : "Want to sign in instead? "}
           </span>
           <button
             type="button"
             className="text-warm-orange hover:text-warm-orange-dark hover:underline font-medium cursor-pointer"
-            onClick={() => setFlow(flow === "signIn" ? "signUp" : "signIn")}
+            onClick={() => {
+              if (flow === "signIn") setFlow("signUp");
+              else if (flow === "signUp") setFlow("createAdmin");
+              else setFlow("signIn");
+            }}
           >
-            {flow === "signIn" ? "Sign up instead" : "Sign in instead"}
+            {flow === "signIn" 
+              ? "Sign up instead" 
+              : flow === "signUp"
+                ? "Create admin instead"
+                : "Sign in instead"}
           </button>
         </div>
         <div className="flex items-center justify-center my-3">

@@ -1,6 +1,5 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
-import { getAuthUserId } from "@convex-dev/auth/server";
 
 // Submit contact form
 export const submitContactForm = mutation({
@@ -12,6 +11,7 @@ export const submitContactForm = mutation({
     message: v.string(),
     language: v.string(),
   },
+  returns: v.id("contactSubmissions"),
   handler: async (ctx, args) => {
     return await ctx.db.insert("contactSubmissions", {
       ...args,
@@ -24,12 +24,19 @@ export const submitContactForm = mutation({
 // Admin: Get contact submissions
 export const getContactSubmissions = query({
   args: { status: v.optional(v.string()) },
+  returns: v.array(v.object({
+    _id: v.id("contactSubmissions"),
+    _creationTime: v.number(),
+    name: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    subject: v.string(),
+    message: v.string(),
+    language: v.string(),
+    status: v.string(),
+    priority: v.string(),
+  })),
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to view contact submissions");
-    }
-
     if (args.status) {
       return await ctx.db
         .query("contactSubmissions")
@@ -52,17 +59,14 @@ export const updateSubmissionStatus = mutation({
     status: v.string(),
     priority: v.optional(v.string()),
   },
+  returns: v.null(),
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to update submissions");
-    }
-
     const updates: any = { status: args.status };
     if (args.priority) {
       updates.priority = args.priority;
     }
 
-    return await ctx.db.patch(args.submissionId, updates);
+    await ctx.db.patch(args.submissionId, updates);
+    return null;
   },
 });

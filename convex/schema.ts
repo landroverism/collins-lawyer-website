@@ -3,6 +3,14 @@ import { v } from "convex/values";
 import { authTables } from "@convex-dev/auth/server";
 
 const applicationTables = {
+  // User profiles for storing additional user data
+  userProfiles: defineTable({
+    userId: v.id("users"),
+    password: v.optional(v.string()),
+    role: v.string(),
+    createdAt: v.optional(v.number()),
+  }).index("by_user", ["userId"]),
+
   // Blog posts for legal tips and articles
   blogPosts: defineTable({
     title: v.object({
@@ -109,15 +117,6 @@ const applicationTables = {
     notes: v.optional(v.string()),
   }).index("by_client", ["clientEmail"])
     .index("by_status", ["status"]),
-
-  // Users table
-  users: defineTable({
-    name: v.optional(v.string()), // Made name optional to handle cases like anonymous users
-    email: v.optional(v.string()), // Made email optional
-    password: v.string(), // Added password field
-    role: v.string(), // Added role field
-    createdAt: v.optional(v.number()), // Made createdAt optional
-  }),
 };
 
 export default defineSchema({

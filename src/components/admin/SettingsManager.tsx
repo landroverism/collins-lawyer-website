@@ -8,16 +8,6 @@ export function SettingsManager({ user }: { user: { id: string; role: string } }
   const settings = useQuery(api.settings.getAllSettings);
   const updateSetting = useMutation(api.settings.updateSetting);
 
-  useEffect(() => {
-    console.log("SettingsManager: Checking user role for admin access...");
-    if (user.role !== "admin") {
-      console.error("SettingsManager: Unauthorized access attempt by user:", user);
-      alert("You are not authorized to access this page.");
-    } else {
-      console.log("SettingsManager: Admin access granted for user:", user);
-    }
-  }, [user]);
-
   const handleUpdateSetting = async (key: string, value: any, description?: string) => {
     try {
       await updateSetting({ key, value, description });

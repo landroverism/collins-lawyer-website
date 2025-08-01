@@ -1,6 +1,5 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
-import { getAuthUserId } from "@convex-dev/auth/server";
 
 // Get approved testimonials
 export const getApprovedTestimonials = query({
@@ -8,6 +7,22 @@ export const getApprovedTestimonials = query({
     featured: v.optional(v.boolean()),
     language: v.optional(v.string()),
   },
+  returns: v.array(v.object({
+    _id: v.id("testimonials"),
+    _creationTime: v.number(),
+    clientName: v.string(),
+    content: v.union(v.string(), v.object({
+      en: v.string(),
+      sw: v.optional(v.string()),
+      fr: v.optional(v.string()),
+      de: v.optional(v.string()),
+      es: v.optional(v.string()),
+    })),
+    rating: v.number(),
+    caseType: v.string(),
+    approved: v.boolean(),
+    featured: v.boolean(),
+  })),
   handler: async (ctx, args) => {
     let query = ctx.db
       .query("testimonials")
@@ -35,6 +50,7 @@ export const submitTestimonial = mutation({
     caseType: v.string(),
     language: v.string(),
   },
+  returns: v.id("testimonials"),
   handler: async (ctx, args) => {
     const contentObj = {
       en: args.language === "en" ? args.content : "",
@@ -61,28 +77,36 @@ export const approveTestimonial = mutation({
     testimonialId: v.id("testimonials"),
     featured: v.optional(v.boolean()),
   },
+  returns: v.null(),
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to approve testimonials");
-    }
-
-    return await ctx.db.patch(args.testimonialId, {
+    await ctx.db.patch(args.testimonialId, {
       approved: true,
       featured: args.featured || false,
     });
+    return null;
   },
 });
 
 // Admin: Get all testimonials
 export const getAllTestimonials = query({
   args: {},
+  returns: v.array(v.object({
+    _id: v.id("testimonials"),
+    _creationTime: v.number(),
+    clientName: v.string(),
+    content: v.object({
+      en: v.string(),
+      sw: v.optional(v.string()),
+      fr: v.optional(v.string()),
+      de: v.optional(v.string()),
+      es: v.optional(v.string()),
+    }),
+    rating: v.number(),
+    caseType: v.string(),
+    approved: v.boolean(),
+    featured: v.boolean(),
+  })),
   handler: async (ctx) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to view all testimonials");
-    }
-
     return await ctx.db.query("testimonials").order("desc").collect();
   },
 });

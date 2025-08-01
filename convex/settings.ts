@@ -1,10 +1,10 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
-import { getAuthUserId } from "@convex-dev/auth/server";
 
 // Get site setting
 export const getSetting = query({
   args: { key: v.string() },
+  returns: v.union(v.string(), v.number(), v.boolean(), v.object({}), v.null()),
   handler: async (ctx, args) => {
     const setting = await ctx.db
       .query("siteSettings")
@@ -18,12 +18,8 @@ export const getSetting = query({
 // Get all settings
 export const getAllSettings = query({
   args: {},
+  returns: v.record(v.string(), v.union(v.string(), v.number(), v.boolean(), v.object({}))),
   handler: async (ctx) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to view settings");
-    }
-
     const settings = await ctx.db.query("siteSettings").collect();
     const settingsObj: Record<string, any> = {};
     
@@ -42,22 +38,19 @@ export const updateSetting = mutation({
     value: v.union(v.string(), v.number(), v.boolean(), v.object({})),
     description: v.optional(v.string()),
   },
+  returns: v.id("siteSettings"),
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("Must be logged in to update settings");
-    }
-
     const existing = await ctx.db
       .query("siteSettings")
       .withIndex("by_key", (q) => q.eq("key", args.key))
       .unique();
 
     if (existing) {
-      return await ctx.db.patch(existing._id, {
+      await ctx.db.patch(existing._id, {
         value: args.value,
         description: args.description,
       });
+      return existing._id;
     } else {
       return await ctx.db.insert("siteSettings", args);
     }

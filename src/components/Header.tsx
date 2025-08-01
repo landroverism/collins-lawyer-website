@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useLanguage } from "./LanguageContext";
 import { useTheme } from "./ThemeContext";
-import { SignInForm } from "../SignInForm";
-import { SignOutButton } from "../SignOutButton";
 
 interface HeaderProps {
   isAdmin: boolean;
@@ -13,7 +11,6 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [showSignIn, setShowSignIn] = useState(false);
 
   const languages = [
     { code: "en", name: "English", flag: "🇺🇸" },
@@ -103,22 +100,12 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
             </button>
 
             {/* Admin Access */}
-            {isAdmin ? (
-              <div className="flex items-center space-x-2 lg:space-x-3">
-                <button
-                  onClick={onAdminAccess}
-                  className="px-3 py-2 lg:px-6 lg:py-2 bg-deep-blue text-white rounded-full hover:bg-gray-100 hover:border-2 hover:border-deep-blue hover:text-deep-blue dark:hover:bg-transparent transition-all duration-300 font-medium text-xs lg:text-sm"
-                >
-                  {t("admin")}
-                </button>
-                <SignOutButton />
-              </div>
-            ) : (
+            {isAdmin && (
               <button
-                onClick={() => setShowSignIn(true)}
+                onClick={onAdminAccess}
                 className="px-3 py-2 lg:px-6 lg:py-2 bg-deep-blue text-white rounded-full hover:bg-gray-100 hover:border-2 hover:border-deep-blue hover:text-deep-blue dark:hover:bg-transparent transition-all duration-300 font-medium text-xs lg:text-sm"
               >
-                Admin
+                Admin Panel
               </button>
             )}
 
@@ -172,27 +159,20 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
                   </button>
                 ))}
               </div>
+
+              {/* Mobile Admin Access */}
+              {isAdmin && (
+                <button
+                  onClick={onAdminAccess}
+                  className="w-full px-4 py-3 bg-deep-blue text-white rounded-lg hover:bg-gray-100 hover:border-2 hover:border-deep-blue hover:text-deep-blue dark:hover:bg-transparent transition-all duration-300 font-medium text-sm"
+                >
+                  Admin Panel
+                </button>
+              )}
             </div>
           </div>
         )}
       </div>
-
-      {/* Sign In Modal */}
-      {showSignIn && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 fade-in">
-          <div className="bg-white dark:bg-deep-blue p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl slide-up relative">
-            <button
-              onClick={() => setShowSignIn(false)}
-              className="absolute top-2 right-2 text-medium-gray hover:text-warm-orange transition-colors duration-300 text-2xl scale-hover-sm"
-              style={{ zIndex: 100 }}
-            >
-              ✕
-            </button>
-            <h2 className="text-2xl font-bold text-deep-blue dark:text-white mb-6">Admin Sign In</h2>
-            <SignInForm />
-          </div>
-        </div>
-      )}
     </header>
   );
 }

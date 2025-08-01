@@ -1,12 +1,38 @@
 import { useLanguage } from "./LanguageContext";
+import { useState } from "react";
 
-export function Footer() {
+interface FooterProps {
+  onSetAdminAccess?: (admin: boolean) => void;
+}
+
+export function Footer({ onSetAdminAccess }: FooterProps) {
   const { t } = useLanguage();
+  const [clickCount, setClickCount] = useState(0);
+  const [lastClickTime, setLastClickTime] = useState(0);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleCopyrightClick = () => {
+    const now = Date.now();
+    
+    // Reset click count if more than 3 seconds have passed
+    if (now - lastClickTime > 3000) {
+      setClickCount(1);
+    } else {
+      setClickCount(prev => prev + 1);
+    }
+    
+    setLastClickTime(now);
+
+    // Secret admin access: 5 clicks within 3 seconds
+    if (clickCount >= 4) { // 5th click (0-indexed, so 4)
+      onSetAdminAccess?.(true);
+      setClickCount(0);
     }
   };
 
@@ -103,9 +129,12 @@ export function Footer() {
       <div className="border-t border-deep-blue-light">
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">
+            <button
+              onClick={handleCopyrightClick}
+              className="text-gray-400 text-sm hover:text-warm-orange transition-colors duration-300 cursor-pointer"
+            >
               © {new Date().getFullYear()} Collins K. Sang & Associates. {t("allRightsReserved")}
-            </p>
+            </button>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-warm-orange transition-colors duration-300 text-sm">
                 {t("privacyPolicy")}

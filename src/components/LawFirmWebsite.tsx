@@ -15,9 +15,10 @@ import { ThemeProvider } from "./ThemeContext";
 interface LawFirmWebsiteProps {
   isAdmin: boolean;
   onAdminAccess?: () => void;
+  onSetAdminAccess?: (admin: boolean) => void;
 }
 
-export function LawFirmWebsite({ isAdmin, onAdminAccess }: LawFirmWebsiteProps) {
+export function LawFirmWebsite({ isAdmin, onAdminAccess, onSetAdminAccess }: LawFirmWebsiteProps) {
   return (
     <ThemeProvider>
       <LanguageProvider>
@@ -31,7 +32,7 @@ export function LawFirmWebsite({ isAdmin, onAdminAccess }: LawFirmWebsiteProps) 
             <Blog />
             <Contact />
           </main>
-          <Footer />
+          <Footer onSetAdminAccess={onSetAdminAccess} />
         </div>
       </LanguageProvider>
     </ThemeProvider>
