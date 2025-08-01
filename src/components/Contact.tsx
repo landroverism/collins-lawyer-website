@@ -16,12 +16,66 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
+  const practiceAreas = [
+    {
+      value: "civil-litigation",
+      label: "Civil Litigation",
+      description: "Comprehensive representation in civil disputes, contract matters, tort claims, property disputes, and debt recovery cases."
+    },
+    {
+      value: "criminal-law",
+      label: "Criminal Law",
+      description: "Expert criminal defense, bail applications, appeals & reviews, and representation in white collar crimes."
+    },
+    {
+      value: "corporate-commercial",
+      label: "Corporate & Commercial Law",
+      description: "Full-service corporate legal support including company formation, governance, mergers & acquisitions, and regulatory compliance."
+    },
+    {
+      value: "property-conveyancing",
+      label: "Property & Conveyancing",
+      description: "Complete property law services from transactions and title searches to lease agreements and land disputes."
+    },
+    {
+      value: "family-law",
+      label: "Family Law",
+      description: "Sensitive handling of family matters including divorce, child custody, matrimonial property, and adoption."
+    },
+    {
+      value: "employment-labor",
+      label: "Employment & Labor Law",
+      description: "Employment law expertise covering contracts, wrongful termination, labor disputes, and workplace policies."
+    },
+    {
+      value: "constitutional-administrative",
+      label: "Constitutional & Administrative Law",
+      description: "Specialized constitutional law practice including petitions, judicial review, and human rights cases."
+    },
+    {
+      value: "alternative-dispute-resolution",
+      label: "Alternative Dispute Resolution",
+      description: "Professional mediation, arbitration, and negotiation services for efficient dispute resolution."
+    },
+    {
+      value: "legal-research-advisory",
+      label: "Legal Research & Advisory",
+      description: "Comprehensive legal research, opinions, policy analysis, and regulatory advice for clients."
+    },
+    {
+      value: "general-inquiry",
+      label: "General Inquiry",
+      description: "General legal consultation and advice on various legal matters."
+    }
+  ];
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
     try {
+      // Submit to Convex database
       await submitContactForm({
         name: formData.name,
         email: formData.email,
@@ -30,6 +84,32 @@ export function Contact() {
         message: formData.message,
         language
       });
+
+      // Send WhatsApp notification
+      const whatsappMessage = `New Contact Form Submission:
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Subject: ${practiceAreas.find(area => area.value === formData.subject)?.label || formData.subject}
+Message: ${formData.message}`;
+
+      const whatsappUrl = `https://wa.me/254718076309?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, '_blank');
+
+      // Send email notification
+      const emailSubject = `New Contact Form: ${practiceAreas.find(area => area.value === formData.subject)?.label || formData.subject}`;
+      const emailBody = `New contact form submission received:
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Subject: ${practiceAreas.find(area => area.value === formData.subject)?.label || formData.subject}
+Message: ${formData.message}
+
+This message was sent from your website contact form.`;
+      
+      const emailUrl = `mailto:xangcollins@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(emailUrl);
       
       setSubmitStatus("success");
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
@@ -168,13 +248,13 @@ export function Contact() {
             
             {submitStatus === "success" && (
               <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-green-800">{t("messageSentSuccess")}</p>
+                <p className="text-green-800">Message sent successfully! You will be contacted shortly.</p>
               </div>
             )}
 
             {submitStatus === "error" && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-800">{t("messageSentError")}</p>
+                <p className="text-red-800">There was an error sending your message. Please try again.</p>
               </div>
             )}
 
@@ -231,22 +311,37 @@ export function Contact() {
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-deep-blue mb-2">
-                    {t("subject")} *
+                    Practice Area *
                   </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-light-gray rounded-lg focus:outline-none focus:ring-2 focus:ring-warm-orange focus:border-warm-orange transition-all duration-300"
-                  >
-                    <option value="">{t("selectSubject")}</option>
-                    <option value="legal-consultation">{t("legalConsultation")}</option>
-                    <option value="case-inquiry">{t("caseInquiry")}</option>
-                    <option value="general-inquiry">{t("generalInquiry")}</option>
-                    <option value="appointment">{t("appointment")}</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-light-gray rounded-lg focus:outline-none focus:ring-2 focus:ring-warm-orange focus:border-warm-orange transition-all duration-300 appearance-none bg-white cursor-pointer"
+                    >
+                      <option value="">Select a Practice Area</option>
+                      {practiceAreas.map((area) => (
+                        <option key={area.value} value={area.value}>
+                          {area.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <svg className="w-5 h-5 text-medium-gray" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                  {formData.subject && (
+                    <div className="mt-2 p-3 bg-light-gray rounded-lg">
+                      <p className="text-sm text-medium-gray">
+                        {practiceAreas.find(area => area.value === formData.subject)?.description}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -271,7 +366,7 @@ export function Contact() {
                 disabled={isSubmitting}
                 className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? t("sending") : t("sendMessage")}
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>

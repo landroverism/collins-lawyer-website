@@ -75,26 +75,26 @@ export function PracticeAreas() {
           {practiceAreas.map((area, index) => (
             <div 
               key={index} 
-              className="card group"
+              className="bg-white rounded-2xl p-8 shadow-lg border border-light-gray hover:shadow-xl hover:transform hover:scale-105 hover:border-warm-orange/30 transition-all duration-300 ease-in-out group cursor-pointer"
             >
               <div className="text-center">
-                <div className="text-5xl mb-6 scale-hover group-hover:text-warm-orange transition-colors duration-300">
+                <div className="text-5xl mb-6 group-hover:scale-110 group-hover:text-warm-orange transition-all duration-300">
                   {area.icon}
                 </div>
                 <h3 className="heading-sm mb-4 group-hover:text-warm-orange transition-colors duration-300">
                   {area.title}
                 </h3>
-                <p className="body-md mb-6">
+                <p className="body-md mb-6 text-medium-gray group-hover:text-medium-gray-dark transition-colors duration-300">
                   {area.description}
                 </p>
                 
                 {/* Services List */}
                 <div className="text-left mb-6">
-                  <h4 className="font-semibold text-deep-blue mb-3 text-sm">Services Include:</h4>
+                  <h4 className="font-semibold text-deep-blue mb-3 text-sm group-hover:text-deep-blue-dark transition-colors duration-300">Services Include:</h4>
                   <ul className="space-y-1">
                     {area.services.map((service, serviceIndex) => (
-                      <li key={serviceIndex} className="text-sm text-medium-gray flex items-center">
-                        <span className="text-warm-orange mr-2">•</span>
+                      <li key={serviceIndex} className="text-sm text-medium-gray flex items-center group-hover:text-medium-gray-dark transition-colors duration-300">
+                        <span className="text-warm-orange mr-2 group-hover:scale-125 transition-transform duration-300">•</span>
                         {service}
                       </li>
                     ))}
@@ -104,10 +104,13 @@ export function PracticeAreas() {
                 {/* CTA Button */}
                 <button 
                   onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="btn-secondary w-full"
+                  className="btn-secondary w-full group-hover:bg-warm-orange group-hover:text-white group-hover:border-warm-orange transition-all duration-300"
                 >
                   {t("consultNow")}
                 </button>
+
+                {/* Bottom border gradient */}
+                <div className="w-full h-1 bg-gradient-to-r from-transparent via-warm-orange/20 to-transparent mt-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </div>
           ))}
