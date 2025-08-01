@@ -1,8 +1,14 @@
+import { v } from "convex/values";
+
 export default {
   providers: [
     {
-      domain: process.env.CONVEX_SITE_URL,
+      domain: "http://localhost:5173",
       applicationID: "convex",
+      userFields: {
+        email: v.string(),
+        password: v.string(),
+      },
     },
   ],
 };

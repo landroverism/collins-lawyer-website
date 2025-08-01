@@ -1,112 +1,122 @@
-import { convexAuth, getAuthUserId } from "@convex-dev/auth/server";
-import { Password } from "@convex-dev/auth/providers/Password";
-import { Anonymous } from "@convex-dev/auth/providers/Anonymous";
-import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { mutation, query, internalMutation } from "./_generated/server";
+import { GenericDatabaseReader } from "convex/server";
 import bcrypt from "bcryptjs";
+import { Doc, Id } from "./_generated/dataModel";
+import { DataModel } from "./_generated/dataModel";
 
-export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
-  providers: [Password, Anonymous],
-});
-
-export const loggedInUser = query({
-  handler: async (ctx) => {
-    const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      return null;
-    }
-    const user = await ctx.db.get(userId);
-    if (!user) {
-      return null;
-    }
-    return { id: user._id, role: user.role }; // Include role in the response
-  },
-});
-
-export const createDefaultAdmin = mutation({
-  handler: async (ctx) => {
-    const existingAdmin = await ctx.db
-      .query("users")
-      .filter((q) => q.eq(q.field("email"), "kemboiham3@gmail.com"))
-      .first();
-
-    if (!existingAdmin) {
-      const hashedPassword = await bcrypt.hash("kem98@#$", 10); // Hash the password
-      await ctx.db.insert("users", {
-        email: "kemboiham3@gmail.com",
-        password: hashedPassword, // Store the hashed password
-        role: "admin",
-        createdAt: new Date(),
-      });
-      console.log("Default admin user created.");
-    } else {
-      console.log("Default admin user already exists.");
-    }
-  },
-});
+// Helper function to safely get user data with proper type parameter
+async function getUserById(db: GenericDatabaseReader<DataModel>, userId: Id<"users">) {
+  const user = await db.get(userId);
+  if (!user || !("role" in user)) {
+    return null;
+  }
+  return user as Doc<"users">;
+}
 
 export const signIn = mutation({
+  args: {
+    email: v.string(),
+    password: v.string(),
+  },
   handler: async (ctx, { email, password }) => {
-    console.log("Attempting to sign in with email:", email);
     const user = await ctx.db
       .query("users")
       .filter((q) => q.eq(q.field("email"), email))
       .first();
 
-    console.log("SignIn Mutation: Received email:", email);
-    console.log("SignIn Mutation: Checking if user exists...");
-
     if (!user) {
-      console.error("SignIn Mutation: User not found for email:", email);
-      throw new Error("User not found");
+      throw new Error("Invalid email or password");
     }
-
-    console.log("SignIn Mutation: User found. Validating password...");
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      console.error("SignIn Mutation: Invalid password for email:", email);
-      throw new Error("Invalid password");
+      throw new Error("Invalid email or password");
     }
-
-    console.log("SignIn Mutation: Password validated. Checking role...");
 
     if (user.role !== "admin") {
-      console.error("SignIn Mutation: Unauthorized access attempt for email:", email);
-      throw new Error("Unauthorized");
+      throw new Error("Unauthorized access");
     }
 
-    console.log("SignIn Mutation: Admin user signed in successfully.");
-    return { id: user._id, role: user.role };
+    return { userId: user._id, role: user.role };
   },
 });
 
 export const signUp = mutation({
-  handler: async (ctx, { email, password }) => {
-    console.log("Attempting to sign up with email:", email);
-
-    // Check if the email is already registered
+  args: {
+    email: v.string(),
+    password: v.string(),
+    name: v.optional(v.string()),
+  },
+  handler: async (ctx, { email, password, name }) => {
     const existingUser = await ctx.db
       .query("users")
       .filter((q) => q.eq(q.field("email"), email))
       .first();
 
     if (existingUser) {
-      console.error("Email is already registered.");
-      throw new Error("Email is already registered");
+      throw new Error("Email already registered");
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create the new user
-    const newUser = await ctx.db.insert("users", {
+    const userId = await ctx.db.insert("users", {
       email,
       password: hashedPassword,
-      role: "user", // Default role for new sign-ups
-      createdAt: new Date(),
+      name,
+      role: "user",
+      createdAt: Date.now(),
     });
 
-    console.log("User signed up successfully:", newUser);
-    return { id: newUser._id, role: newUser.role };
+    return { userId, role: "user" };
+  },
+});
+
+// Changed to internalMutation to make it accessible via CLI
+export const createDefaultAdmin = internalMutation({
+  handler: async (ctx) => {
+    console.log("Starting createDefaultAdmin mutation...");
+
+    const existingAdmin = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), "kemboiham3@gmail.com"))
+      .first();
+
+    if (!existingAdmin) {
+      console.log("No existing admin found, creating new admin...");
+      const hashedPassword = await bcrypt.hash("kem98@#$", 10);
+      const adminId = await ctx.db.insert("users", {
+        name: "Admin User",
+        email: "kemboiham3@gmail.com",
+        password: hashedPassword,
+        role: "admin",
+        createdAt: Date.now(),
+      });
+      console.log("Admin user created successfully with ID:", adminId);
+      return { success: true, message: "Default admin user created", adminId };
+    }
+
+    console.log("Admin user already exists");
+    return { success: false, message: "Default admin user already exists" };
+  },
+});
+
+export const me = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+
+    const user = await getUserById(ctx.db, identity.subject as Id<"users">);
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user._id,
+      role: user.role,
+      email: user.email,
+      name: user.name,
+    };
   },
 });

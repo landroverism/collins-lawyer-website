@@ -112,11 +112,11 @@ const applicationTables = {
 
   // Users table
   users: defineTable({
-    name: v.string(),
-    email: v.string(),
+    name: v.optional(v.string()), // Made name optional to handle cases like anonymous users
+    email: v.optional(v.string()), // Made email optional
     password: v.string(), // Added password field
     role: v.string(), // Added role field
-    createdAt: v.number(),
+    createdAt: v.optional(v.number()), // Made createdAt optional
   }),
 };
 

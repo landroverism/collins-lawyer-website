@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { toast } from "sonner";
 
-export function SettingsManager() {
+export function SettingsManager({ user }: { user: { id: string; role: string } }) {
   const [newSetting, setNewSetting] = useState({ key: "", value: "", description: "" });
   const settings = useQuery(api.settings.getAllSettings);
   const updateSetting = useMutation(api.settings.updateSetting);
+
+  useEffect(() => {
+    console.log("SettingsManager: Checking user role for admin access...");
+    if (user.role !== "admin") {
+      console.error("SettingsManager: Unauthorized access attempt by user:", user);
+      alert("You are not authorized to access this page.");
+    } else {
+      console.log("SettingsManager: Admin access granted for user:", user);
+    }
+  }, [user]);
 
   const handleUpdateSetting = async (key: string, value: any, description?: string) => {
     try {

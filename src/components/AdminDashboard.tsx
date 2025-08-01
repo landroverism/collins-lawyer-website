@@ -13,7 +13,28 @@ interface AdminDashboardProps {
 
 export function AdminDashboard({ onBackToSite }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState("overview");
-  const loggedInUser = useQuery(api.auth.loggedInUser);
+  const loggedInUser = useQuery(api.auth.me); // Changed from loggedInUser to me
+
+  if (!loggedInUser || loggedInUser.role !== "admin") {
+    return (
+      <div className="min-h-screen bg-light-gray dark:bg-dark-gray flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-deep-blue dark:text-white mb-4">
+            Unauthorized Access
+          </h2>
+          <p className="text-medium-gray dark:text-medium-gray-light mb-6">
+            You do not have permission to access this area.
+          </p>
+          <button
+            onClick={onBackToSite}
+            className="px-6 py-3 bg-warm-orange text-white rounded-lg hover:bg-warm-orange-dark transition-all duration-300"
+          >
+            Return to Site
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const tabs = [
     { id: "overview", name: "Overview", icon: "📊" },
@@ -37,7 +58,7 @@ export function AdminDashboard({ onBackToSite }: AdminDashboardProps) {
       case "contacts":
         return <ContactManager />;
       case "settings":
-        return <SettingsManager />;
+        return <SettingsManager user={loggedInUser} />;
       default:
         return <OverviewTab />;
     }
@@ -96,9 +117,7 @@ export function AdminDashboard({ onBackToSite }: AdminDashboardProps) {
 
           {/* Main Content */}
           <div className="flex-1">
-            <div className="card">
-              {renderContent()}
-            </div>
+            <div className="card">{renderContent()}</div>
           </div>
         </div>
       </div>
@@ -117,33 +136,35 @@ function OverviewTab() {
       name: "Blog Posts",
       value: blogPosts?.length || 0,
       icon: "📝",
-      color: "bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100"
+      color:
+        "bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100",
     },
     {
       name: "Practice Areas",
       value: practiceAreas?.length || 0,
       icon: "⚖️",
-      color: "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
+      color:
+        "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100",
     },
     {
       name: "Testimonials",
       value: testimonials?.length || 0,
       icon: "💬",
-      color: "bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100"
+      color:
+        "bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100",
     },
     {
       name: "Contact Forms",
       value: contacts?.length || 0,
       icon: "📧",
-      color: "bg-orange-100 text-orange-800 dark:bg-orange-800 dark:text-orange-100"
-    }
+      color:
+        "bg-orange-100 text-orange-800 dark:bg-orange-800 dark:text-orange-100",
+    },
   ];
 
   return (
     <div>
-      <h2 className="heading-lg mb-12">
-        Dashboard Overview
-      </h2>
+      <h2 className="heading-lg mb-12">Dashboard Overview</h2>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
@@ -173,9 +194,7 @@ function OverviewTab() {
       {/* Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="fade-in">
-          <h3 className="heading-sm mb-8">
-            Recent Contact Forms
-          </h3>
+          <h3 className="heading-sm mb-8">Recent Contact Forms</h3>
           <div className="space-y-4">
             {contacts?.slice(0, 5).map((contact, index) => (
               <div
@@ -192,11 +211,13 @@ function OverviewTab() {
                       {contact.subject}
                     </p>
                   </div>
-                  <span className={`px-3 py-1 text-xs rounded-full font-medium ${
-                    contact.status === 'new' 
-                      ? 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100'
-                      : 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
-                  }`}>
+                  <span
+                    className={`px-3 py-1 text-xs rounded-full font-medium ${
+                      contact.status === "new"
+                        ? "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100"
+                        : "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
+                    }`}
+                  >
                     {contact.status}
                   </span>
                 </div>
@@ -205,10 +226,8 @@ function OverviewTab() {
           </div>
         </div>
 
-        <div className="fade-in" style={{ animationDelay: '0.2s' }}>
-          <h3 className="heading-sm mb-8">
-            Recent Blog Posts
-          </h3>
+        <div className="fade-in" style={{ animationDelay: "0.2s" }}>
+          <h3 className="heading-sm mb-8">Recent Blog Posts</h3>
           <div className="space-y-4">
             {blogPosts?.slice(0, 5).map((post, index) => (
               <div
@@ -225,12 +244,14 @@ function OverviewTab() {
                       {new Date(post._creationTime).toLocaleDateString()}
                     </p>
                   </div>
-                  <span className={`px-3 py-1 text-xs rounded-full font-medium ${
-                    post.published 
-                      ? 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
-                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100'
-                  }`}>
-                    {post.published ? 'Published' : 'Draft'}
+                  <span
+                    className={`px-3 py-1 text-xs rounded-full font-medium ${
+                      post.published
+                        ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
+                        : "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100"
+                    }`}
+                  >
+                    {post.published ? "Published" : "Draft"}
                   </span>
                 </div>
               </div>

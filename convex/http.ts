@@ -1,8 +1,6 @@
-import { auth } from "./auth";
-import router from "./router";
+import { httpRouter } from "convex/server";
 
-const http = router;
+const http = httpRouter();
 
-auth.addHttpRoutes(http);
-
+// Remove complex routing for now since we're handling auth through mutations
 export default http;

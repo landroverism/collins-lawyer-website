@@ -25,28 +25,23 @@ export function SignInForm() {
 
           try {
             if (flow === "signIn") {
-              const result = await signInMutation({ email, password });
-              if (result.role === "admin") {
-                toast.success("Welcome, Admin!");
-                // Redirect to admin dashboard or perform other actions
-              } else {
-                toast.error("Unauthorized access");
+              const response = await signInMutation({ email, password });
+              if (response?.userId) {
+                // Convert the response to a string token format expected by signIn
+                await signIn(response.userId);
+                toast.success("Signed in successfully!");
               }
             } else {
-              const result = await signUpMutation({ email, password });
-              toast.success("Sign-up successful! You can now sign in.");
+              const response = await signUpMutation({ email, password });
+              if (response?.userId) {
+                await signIn(response.userId);
+                toast.success("Sign-up successful!");
+              }
             }
-          } catch (error) {
-            let toastTitle = "";
-            if (error.message.includes("Invalid password")) {
-              toastTitle = "Invalid password. Please try again.";
-            } else {
-              toastTitle =
-                flow === "signIn"
-                  ? "Could not sign in, did you mean to sign up?"
-                  : "Could not sign up, did you mean to sign in?";
-            }
-            toast.error(toastTitle);
+          } catch (err) {
+            const error = err as Error;
+            console.error("Auth error:", error);
+            toast.error(error?.message || "Authentication failed");
           } finally {
             setSubmitting(false);
           }

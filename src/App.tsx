@@ -8,7 +8,7 @@ import { LawFirmWebsite } from "./components/LawFirmWebsite";
 import { AdminDashboard } from "./components/AdminDashboard";
 
 export default function App() {
-  const loggedInUser = useQuery(api.auth.loggedInUser);
+  const loggedInUser = useQuery(api.auth.me); // Changed from loggedInUser to me
   const [showAdmin, setShowAdmin] = useState(false);
   const isAdmin = loggedInUser?.role === "admin"; // Determine if the user is an admin
 
