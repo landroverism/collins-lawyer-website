@@ -37,12 +37,12 @@ export function PracticeAreaManager() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-deep-blue">
           Practice Areas
         </h2>
         <button
           onClick={() => setShowCreateForm(true)}
-          className="px-4 py-2 bg-navy-600 hover:bg-navy-700 text-white rounded-lg transition-colors"
+          className="btn-primary"
         >
           Add Practice Area
         </button>
@@ -51,15 +51,15 @@ export function PracticeAreaManager() {
       {/* Create Form Modal */}
       {showCreateForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-bold text-deep-blue">
                   Add Practice Area
                 </h3>
                 <button
                   onClick={() => setShowCreateForm(false)}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="text-medium-gray hover:text-deep-blue"
                 >
                   ✕
                 </button>
@@ -67,7 +67,7 @@ export function PracticeAreaManager() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-deep-blue mb-2">
                     Title (English) *
                   </label>
                   <input
@@ -78,12 +78,12 @@ export function PracticeAreaManager() {
                       ...prev,
                       title: { ...prev.title, en: e.target.value }
                     }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-navy-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-warm-orange bg-white text-deep-blue"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-deep-blue mb-2">
                     Description (English) *
                   </label>
                   <textarea
@@ -94,13 +94,13 @@ export function PracticeAreaManager() {
                       ...prev,
                       description: { ...prev.description, en: e.target.value }
                     }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-navy-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-warm-orange bg-white text-deep-blue"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-deep-blue mb-2">
                       Icon
                     </label>
                     <div className="flex flex-wrap gap-2 mb-2">
@@ -111,8 +111,8 @@ export function PracticeAreaManager() {
                           onClick={() => setFormData(prev => ({ ...prev, icon }))}
                           className={`p-2 text-2xl border rounded-lg ${
                             formData.icon === icon
-                              ? 'border-navy-500 bg-navy-50 dark:bg-navy-900'
-                              : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                              ? 'border-warm-orange bg-warm-orange/10'
+                              : 'border-gray-300 hover:bg-light-gray'
                           }`}
                         >
                           {icon}
@@ -124,18 +124,18 @@ export function PracticeAreaManager() {
                       value={formData.icon}
                       onChange={(e) => setFormData(prev => ({ ...prev, icon: e.target.value }))}
                       placeholder="Or enter custom emoji"
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-navy-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-warm-orange bg-white text-deep-blue"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-deep-blue mb-2">
                       Display Order
                     </label>
                     <input
                       type="number"
                       value={formData.order}
                       onChange={(e) => setFormData(prev => ({ ...prev, order: parseInt(e.target.value) || 0 }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-navy-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-warm-orange bg-white text-deep-blue"
                     />
                   </div>
                 </div>
@@ -144,13 +144,13 @@ export function PracticeAreaManager() {
                   <button
                     type="button"
                     onClick={() => setShowCreateForm(false)}
-                    className="px-4 py-2 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="px-4 py-2 text-medium-gray border border-gray-300 rounded-lg hover:bg-light-gray"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-navy-600 hover:bg-navy-700 text-white rounded-lg"
+                    className="btn-primary"
                   >
                     Add Practice Area
                   </button>
@@ -166,31 +166,31 @@ export function PracticeAreaManager() {
         {practiceAreas?.map((area) => (
           <div
             key={area._id}
-            className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600"
+            className="p-4 bg-white rounded-lg border border-gray-200 shadow-sm"
           >
             <div className="flex items-start justify-between mb-3">
               <div className="text-3xl">{area.icon}</div>
               <div className="flex items-center space-x-2">
                 <span className={`px-2 py-1 text-xs rounded-full ${
                   area.active 
-                    ? 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
-                    : 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100'
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
                 }`}>
                   {area.active ? 'Active' : 'Inactive'}
                 </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-medium-gray">
                   Order: {area.order}
                 </span>
               </div>
             </div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="font-semibold text-deep-blue mb-2">
               {area.title.en}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <p className="text-sm text-medium-gray mb-3">
               {area.description.en}
             </p>
             <div className="flex justify-end">
-              <button className="px-3 py-1 text-sm bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 rounded">
+              <button className="px-3 py-1 text-sm bg-light-gray hover:bg-medium-gray text-deep-blue rounded transition-colors">
                 Edit
               </button>
             </div>

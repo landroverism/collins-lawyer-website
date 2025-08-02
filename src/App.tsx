@@ -7,10 +7,15 @@ export default function App() {
   const [showAdmin, setShowAdmin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const handleBackToSite = () => {
+    setShowAdmin(false);
+    setIsAdmin(false); // Reset admin access when exiting
+  };
+
   return (
     <div className="min-h-screen">
       {showAdmin ? (
-        <AdminDashboard onBackToSite={() => setShowAdmin(false)} />
+        <AdminDashboard onBackToSite={handleBackToSite} />
       ) : (
         <LawFirmWebsite 
           isAdmin={isAdmin} 
