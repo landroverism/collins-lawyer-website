@@ -75,45 +75,55 @@ export function Contact() {
     setSubmitStatus("idle");
 
     try {
-      // Submit to Convex database
-      await submitContactForm({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        subject: formData.subject,
-        message: formData.message,
-        language
-      });
-
-      // Send WhatsApp notification
+      // Prepare the message content
+      const practiceAreaLabel = practiceAreas.find(area => area.value === formData.subject)?.label || formData.subject;
+      
+      // Create WhatsApp message
       const whatsappMessage = `New Contact Form Submission:
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
-Subject: ${practiceAreas.find(area => area.value === formData.subject)?.label || formData.subject}
+Subject: ${practiceAreaLabel}
 Message: ${formData.message}`;
 
-      const whatsappUrl = `https://wa.me/254718076309?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappUrl, '_blank');
-
-      // Send email notification
-      const emailSubject = `New Contact Form: ${practiceAreas.find(area => area.value === formData.subject)?.label || formData.subject}`;
+      // Create email content
+      const emailSubject = `New Contact Form: ${practiceAreaLabel}`;
       const emailBody = `New contact form submission received:
 
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
-Subject: ${practiceAreas.find(area => area.value === formData.subject)?.label || formData.subject}
+Subject: ${practiceAreaLabel}
 Message: ${formData.message}
 
 This message was sent from your website contact form.`;
-      
+
+      // Send WhatsApp message
+      const whatsappUrl = `https://wa.me/254718076309?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, '_blank');
+
+      // Send email
       const emailUrl = `mailto:xangcollins@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
       window.open(emailUrl);
+
+      // Try to submit to Convex database (but don't wait for it)
+      try {
+        await submitContactForm({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+          language
+        });
+      } catch (dbError) {
+        console.log("Database submission failed, but message was sent via email and WhatsApp");
+      }
       
       setSubmitStatus("success");
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
     } catch (error) {
+      console.error("Error submitting form:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -248,13 +258,15 @@ This message was sent from your website contact form.`;
             
             {submitStatus === "success" && (
               <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-green-800">Message sent successfully! You will be contacted shortly.</p>
+                <p className="text-green-800 font-medium">✅ Message sent successfully!</p>
+                <p className="text-green-700 text-sm mt-1">Your message has been sent via email and WhatsApp. You will be contacted shortly.</p>
               </div>
             )}
 
             {submitStatus === "error" && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-800">There was an error sending your message. Please try again.</p>
+                <p className="text-red-800 font-medium">❌ Error sending message</p>
+                <p className="text-red-700 text-sm mt-1">Please try again or contact directly via email or WhatsApp.</p>
               </div>
             )}
 

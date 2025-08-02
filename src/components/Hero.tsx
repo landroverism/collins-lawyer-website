@@ -3,6 +3,13 @@ import { useLanguage } from "./LanguageContext";
 export function Hero() {
   const { t } = useLanguage();
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
       {/* Background Image */}
@@ -40,10 +47,16 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <button className="btn-primary text-lg px-8 py-4">
+            <button 
+              onClick={scrollToContact}
+              className="btn-primary text-lg px-8 py-4 hover:scale-105 transition-transform duration-300"
+            >
               {t("bookConsultation")}
             </button>
-            <button className="btn-secondary text-lg px-8 py-4">
+            <button 
+              onClick={scrollToContact}
+              className="btn-secondary text-lg px-8 py-4 hover:scale-105 transition-transform duration-300"
+            >
               {t("contactUs")}
             </button>
           </div>
