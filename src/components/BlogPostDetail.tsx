@@ -118,7 +118,7 @@ export function BlogPostDetail({ slug, onBack }: BlogPostDetailProps) {
                     Collins K. Sang
                   </p>
                   <p className="text-sm text-medium-gray dark:text-medium-gray-light">
-                    Advocate of the High Court of Kenya
+                    Collins Kipkemoi Sang and Company Advocates
                   </p>
                 </div>
               </div>

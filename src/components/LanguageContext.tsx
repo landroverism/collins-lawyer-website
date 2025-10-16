@@ -20,8 +20,8 @@ const translations = {
     admin: "Admin",
     
     // Hero Section
-    heroTitle: "Collins Kipkemoi Sang",
-    heroSubtitle: "Advocate of the High Court of Kenya",
+    heroTitle: "Collins Kipkemoi Sang and Company Advocates",
+    heroSubtitle: "Collins Kipkemoi Sang and Company Advocates",
     heroDescription: "Providing expert legal services with integrity, professionalism, and dedication to justice. Serving clients across Kenya with comprehensive legal solutions.",
     bookConsultation: "Book Free Consultation",
     contactNow: "Contact Us Now",
@@ -116,7 +116,7 @@ const translations = {
     admin: "Msimamizi",
     
     // Hero Section
-    heroTitle: "Collins Kipkemoi Sang",
+    heroTitle: "Collins Kipkemoi Sang and Company Advocates",
     heroSubtitle: "Mtetezi wa Mahakama Kuu ya Kenya",
     heroDescription: "Kutoa huduma za kisheria za kitaalamu kwa uongozi, utaalamu, na kujitolea kwa haki. Kutumikia wateja kote Kenya kwa suluhisho kamili za kisheria.",
     bookConsultation: "Panga Ushauri wa Bure",
@@ -198,7 +198,7 @@ const translations = {
     admin: "Admin",
     
     // Hero Section
-    heroTitle: "Collins Kipkemoi Sang",
+    heroTitle: "Collins Kipkemoi Sang and Company Advocates",
     heroSubtitle: "Avocat de la Haute Cour du Kenya",
     heroDescription: "Fournir des services juridiques experts avec intégrité, professionnalisme et dévouement à la justice. Au service des clients à travers le Kenya avec des solutions juridiques complètes.",
     bookConsultation: "Réserver une Consultation Gratuite",
@@ -294,7 +294,7 @@ const translations = {
     admin: "Admin",
     
     // Hero Section
-    heroTitle: "Collins Kipkemoi Sang",
+    heroTitle: "Collins Kipkemoi Sang and Company Advocates",
     heroSubtitle: "Anwalt des High Court of Kenya",
     heroDescription: "Bereitstellung von fachkundigen Rechtsdienstleistungen mit Integrität, Professionalität und Hingabe zur Gerechtigkeit. Betreuung von Kunden in ganz Kenia mit umfassenden Rechtslösungen.",
     bookConsultation: "Kostenlose Beratung Buchen",
@@ -363,7 +363,7 @@ const translations = {
     admin: "Admin",
     
     // Hero Section
-    heroTitle: "Collins Kipkemoi Sang",
+    heroTitle: "Collins Kipkemoi Sang and Company Advocates",
     heroSubtitle: "Abogado del Tribunal Superior de Kenia",
     heroDescription: "Proporcionando servicios legales expertos con integridad, profesionalismo y dedicación a la justicia. Sirviendo a clientes en todo Kenia con soluciones legales integrales.",
     bookConsultation: "Reservar Consulta Gratuita",

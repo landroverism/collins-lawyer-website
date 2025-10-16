@@ -241,10 +241,6 @@ This message was sent from your website contact form.`;
                   <span className="font-medium">8:00 AM - 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-medium-gray">{t("saturday")}</span>
-                  <span className="font-medium">9:00 AM - 2:00 PM</span>
-                </div>
-                <div className="flex justify-between">
                   <span className="text-medium-gray">{t("sunday")}</span>
                   <span className="font-medium">{t("closed")}</span>
                 </div>
