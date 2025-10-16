@@ -13,34 +13,34 @@ export function About() {
             <h2 className="heading-lg mb-8 text-deep-blue">{t("aboutTitle")}</h2>
             <div className="space-y-6">
               <p className="body-lg text-deep-blue">
-                As an Advocate of the High Court of Kenya, I bring comprehensive legal expertise spanning litigation, legal research, document drafting, and client relations. With a proven track record in judicial environments and commercial legal practice, I am committed to delivering exceptional legal services through meticulous attention to detail and ethical advocacy.
+                COLLINS KIPKEMOI SANG & COMPANY ADVOCATES is a Nairobi-based law firm providing full-service legal representation to individuals, corporates, and institutions. We deliver practical, business-aware solutions rooted in integrity, professionalism, and a relentless commitment to our clients’ objectives.
               </p>
               <p className="body-md text-deep-blue">
-                My experience includes serving as Head of Legal Research and Drafting at Owuondo and Obinchu Company Advocates, completing an intensive internship at the Court of Appeal, and actively litigating matters in court post-admission. I have developed strong expertise across multiple areas of law through my Advocates Training Programme.
+                Our practice spans Civil and Commercial Litigation, Corporate & Commercial Advisory, Property & Conveyancing, Family Law, Employment & Labour, Constitutional & Administrative Law, and Alternative Dispute Resolution, among others.
               </p>
               <p className="body-md text-deep-blue">
-                My approach combines traditional legal expertise with modern client service, ensuring every case receives personalized attention and strategic thinking. I am dedicated to providing trusted legal counsel across multiple practice areas with integrity, professionalism, and dedication to justice.
+                We combine deep legal expertise with modern client service—responsive communication, clear fee structures, and proactive case management—to achieve efficient and effective outcomes.
               </p>
             </div>
 
-            {/* Professional Qualifications */}
+            {/* Firm Highlights */}
             <div className="mt-12">
-              <h3 className="heading-md mb-6 text-deep-blue">Professional Qualifications</h3>
+              <h3 className="heading-md mb-6 text-deep-blue">Firm Highlights</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="card-light text-center">
+                  <div className="text-2xl text-warm-orange mb-3">🗂️</div>
+                  <h4 className="font-semibold text-deep-blue mb-2">Multi-Disciplinary Practice</h4>
+                  <p className="text-sm text-deep-blue">End-to-end support across key practice areas.</p>
+                </div>
+                <div className="card-light text-center">
+                  <div className="text-2xl text-warm-orange mb-3">🤝</div>
+                  <h4 className="font-semibold text-deep-blue mb-2">Client-Centric Service</h4>
+                  <p className="text-sm text-deep-blue">Responsive, transparent, and outcome-driven.</p>
+                </div>
+                <div className="card-light text-center">
                   <div className="text-2xl text-warm-orange mb-3">⚖️</div>
-                  <h4 className="font-semibold text-deep-blue mb-2">Advocate</h4>
-                  <p className="text-sm text-deep-blue">High Court of Kenya</p>
-                </div>
-                <div className="card-light text-center">
-                  <div className="text-2xl text-warm-orange mb-3">🎓</div>
-                  <h4 className="font-semibold text-deep-blue mb-2">Post-Graduate Diploma</h4>
-                  <p className="text-sm text-deep-blue">Kenya School of Law</p>
-                </div>
-                <div className="card-light text-center">
-                  <div className="text-2xl text-warm-orange mb-3">📚</div>
-                  <h4 className="font-semibold text-deep-blue mb-2">Bachelor of Laws</h4>
-                  <p className="text-sm text-deep-blue">Moi University</p>
+                  <h4 className="font-semibold text-deep-blue mb-2">Litigation & ADR Strength</h4>
+                  <p className="text-sm text-deep-blue">Strategic dispute resolution in courts and tribunals.</p>
                 </div>
               </div>
             </div>
@@ -80,8 +80,8 @@ export function About() {
               {/* Professional photo */}
               <div className="w-full h-96 rounded-2xl overflow-hidden shadow-2xl scale-hover-sm">
                 <img 
-                  src="/images/collins-pic.jpeg" 
-                  alt="Collins K. Sang - Advocate of the High Court of Kenya"
+                  src="/images/gavel-ham.png" 
+                  alt="Collins Kipkemoi Sang & Company Advocates"
                   className="w-full h-full object-cover"
                 />
               </div>

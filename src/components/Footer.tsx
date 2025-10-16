@@ -45,13 +45,13 @@ export function Footer({ onSetAdminAccess }: FooterProps) {
             {/* Company Info */}
             <div className="lg:col-span-2">
               <h3 className="text-2xl font-bold text-white mb-6">
-                Collins K. Sang & Associates
+                COLLINS KIPKEMOI SANG & COMPANY ADVOCATES
               </h3>
               <p className="body-md text-gray-300 mb-6 max-w-md">
-                Providing expert legal services with integrity, professionalism, and dedication to justice. As an Advocate of the High Court of Kenya, I bring comprehensive legal expertise spanning litigation, legal research, document drafting, and client relations.
+                ADVOCATES AND LEGAL CONSULTANTS
               </p>
               <div className="flex space-x-4">
-                <a href="mailto:xangcollins@gmail.com" className="w-12 h-12 bg-warm-orange rounded-full flex items-center justify-center text-white hover:bg-warm-orange-light transition-all duration-300 scale-hover-sm">
+                <a href="mailto:collinskipkemoilaw@outlook.com" className="w-12 h-12 bg-warm-orange rounded-full flex items-center justify-center text-white hover:bg-warm-orange-light transition-all duration-300 scale-hover-sm">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                   </svg>
@@ -110,8 +110,8 @@ export function Footer({ onSetAdminAccess }: FooterProps) {
                   </span>
                   <div>
                     <p className="text-gray-300 text-sm">
-                      Eldoret, Kenya<br />
-                      Office Location
+                      Kirima House, Moktar Daddah Street<br />
+                      Nairobi, Kenya.
                     </p>
                   </div>
                 </div>
@@ -131,9 +131,20 @@ export function Footer({ onSetAdminAccess }: FooterProps) {
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
                   </span>
-                  <a href="mailto:xangcollins@gmail.com" className="text-gray-300 hover:text-warm-orange transition-colors duration-300 text-sm">
-                    xangcollins@gmail.com
+                  <a href="mailto:collinskipkemoilaw@outlook.com" className="text-gray-300 hover:text-warm-orange transition-colors duration-300 text-sm">
+                    collinskipkemoilaw@outlook.com
                   </a>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-warm-orange text-lg">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M3 7v10h18V7H3zm2 2h14v6H5V9zm0 8h14v2H5v-2z"/>
+                    </svg>
+                  </span>
+                  <div className="text-gray-300 text-sm">
+                    P.O Box 106086<br />
+                    00100 - G.P.O, Nairobi.
+                  </div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className="text-warm-orange text-lg">
@@ -160,7 +171,7 @@ export function Footer({ onSetAdminAccess }: FooterProps) {
               onClick={handleCopyrightClick}
               className="text-gray-400 text-sm hover:text-warm-orange transition-colors duration-300 cursor-pointer"
             >
-              © {new Date().getFullYear()} Collins K. Sang & Associates. {t("allRightsReserved")}
+              © {new Date().getFullYear()} COLLINS KIPKEMOI SANG & COMPANY ADVOCATES. {t("allRightsReserved")}
             </button>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-warm-orange transition-colors duration-300 text-sm">

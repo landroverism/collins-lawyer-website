@@ -11,17 +11,17 @@ export function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center text-white overflow-hidden pt-24 lg:pt-28">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/images/collins-mic.jpeg')`
+          backgroundImage: `url('/images/books-gavel.png?v=2')`
         }}
       ></div>
 
       {/* Dark Overlay for Text Readability */}
-      <div className="absolute inset-0 bg-deep-blue/85"></div>
+      <div className="absolute inset-0 bg-deep-blue/70"></div>
 
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -34,14 +34,14 @@ export function Hero() {
       <div className="relative z-10 container-custom text-center">
         <div className="max-w-4xl mx-auto">
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight break-words">
             <span className="text-white">{t("heroTitle")}</span>
             <br />
             <span className="text-warm-orange">{t("heroSubtitle")}</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
             {t("heroDescription")}
           </p>
 
@@ -64,20 +64,20 @@ export function Hero() {
           {/* Trust Indicators */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 card-light border border-warm-orange/20 hover:bg-white/20 hover:border-warm-orange/40 hover:transform hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out group">
-              <div className="text-5xl font-special text-warm-orange mb-4 group-hover:scale-110 transition-transform duration-300">⚖️</div>
-              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">Advocate of the High Court</div>
+              <img src="/images/proper-scale.jpg" alt="Full-Service Law Firm" className="w-full h-40 object-cover rounded-xl mb-4 border border-warm-orange/30" />
+              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">Full-Service Law Firm</div>
               <div className="w-full h-1 bg-gradient-to-r from-warm-orange to-warm-orange-light mt-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 card-light border border-warm-orange/20 hover:bg-white/20 hover:border-warm-orange/40 hover:transform hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out group">
-              <div className="text-5xl font-special text-warm-orange mb-4 group-hover:scale-110 transition-transform duration-300">🎓</div>
-              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">Post-Graduate Diploma in Law</div>
+              <img src="/images/gavel.jpg" alt="Advocates and Legal Consultants" className="w-full h-40 object-cover rounded-xl mb-4 border border-warm-orange/30" />
+              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">ADVOCATES AND LEGAL CONSULTANTS</div>
               <div className="w-full h-1 bg-gradient-to-r from-warm-orange to-warm-orange-light mt-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 card-light border border-warm-orange/20 hover:bg-white/20 hover:border-warm-orange/40 hover:transform hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out group">
-              <div className="text-5xl font-special text-warm-orange mb-4 group-hover:scale-110 transition-transform duration-300">🏢</div>
-              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">Head of Legal Research & Drafting</div>
+              <img src="/images/areas.jpg" alt="Broad Practice Areas" className="w-full h-40 object-cover rounded-xl mb-4 border border-warm-orange/30" />
+              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">Broad Practice Areas</div>
               <div className="w-full h-1 bg-gradient-to-r from-warm-orange to-warm-orange-light mt-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           </div>

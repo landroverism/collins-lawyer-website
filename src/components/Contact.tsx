@@ -103,7 +103,7 @@ This message was sent from your website contact form.`;
       window.open(whatsappUrl, '_blank');
 
       // Send email
-      const emailUrl = `mailto:xangcollins@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      const emailUrl = `mailto:collinskipkemoilaw@outlook.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
       window.open(emailUrl);
 
       // Try to submit to Convex database (but don't wait for it)
@@ -168,8 +168,8 @@ This message was sent from your website contact form.`;
                 </div>
                 <div>
                   <h4 className="font-semibold text-deep-blue mb-1">{t("email")}</h4>
-                  <a href="mailto:xangcollins@gmail.com" className="text-medium-gray hover:text-warm-orange transition-colors">
-                    xangcollins@gmail.com
+                  <a href="mailto:collinskipkemoilaw@outlook.com" className="text-medium-gray hover:text-warm-orange transition-colors">
+                    collinskipkemoilaw@outlook.com
                   </a>
                 </div>
               </div>
@@ -197,8 +197,8 @@ This message was sent from your website contact form.`;
                 <div>
                   <h4 className="font-semibold text-deep-blue mb-1">{t("address")}</h4>
                   <p className="text-medium-gray">
-                    Eldoret, Kenya<br />
-                    {t("officeHours")}
+                    Kirima House, Moktar Daddah Street<br />
+                    Nairobi, Kenya.
                   </p>
                 </div>
               </div>

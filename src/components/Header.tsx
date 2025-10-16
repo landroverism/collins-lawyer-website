@@ -33,10 +33,10 @@ export function Header({ isAdmin, onAdminAccess }: HeaderProps) {
           {/* Logo */}
           <div className="flex-shrink-0">
             <h1 className="text-xl lg:text-2xl font-bold text-deep-blue transition-colors duration-300 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Collins K. Sang
+              C.S.K
             </h1>
             <p className="text-xs lg:text-sm text-gray-700 font-handwriting" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Advocate of the High Court
+              ADVOCATES AND LEGAL CONSULTANTS
             </p>
           </div>
 
