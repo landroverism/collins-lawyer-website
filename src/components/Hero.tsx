@@ -35,9 +35,7 @@ export function Hero() {
         <div className="max-w-4xl mx-auto">
           {/* Main Heading */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight break-words">
-            <span className="text-white">{t("heroTitle")}</span>
-            <br />
-            <span className="text-warm-orange">{t("heroSubtitle")}</span>
+            <span className="text-warm-orange">{t("heroTitle")}</span>
           </h1>
 
           {/* Subtitle */}
@@ -71,7 +69,7 @@ export function Hero() {
             
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 card-light border border-warm-orange/20 hover:bg-white/20 hover:border-warm-orange/40 hover:transform hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out group">
               <img src="/images/gavel.jpg" alt="Advocates and Legal Consultants" className="w-full h-40 object-cover rounded-xl mb-4 border border-warm-orange/30" />
-              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">ADVOCATES AND LEGAL CONSULTANTS</div>
+              <div className="text-deep-blue font-medium group-hover:text-deep-blue-dark transition-colors duration-300">Expert Legal Representation</div>
               <div className="w-full h-1 bg-gradient-to-r from-warm-orange to-warm-orange-light mt-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             

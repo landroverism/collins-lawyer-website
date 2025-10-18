@@ -45,23 +45,6 @@ export function About() {
               </div>
             </div>
 
-            {/* Key Experience */}
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="card-light">
-                <div className="text-3xl text-warm-orange mb-4">🏢</div>
-                <h3 className="heading-sm mb-3 text-deep-blue">Head of Legal Research & Drafting</h3>
-                <p className="body-sm text-deep-blue">
-                  Led legal research and document drafting at Owuondo and Obinchu Company Advocates, providing comprehensive legal support and strategic guidance.
-                </p>
-              </div>
-              <div className="card-light">
-                <div className="text-3xl text-warm-orange mb-4">⚖️</div>
-                <h3 className="heading-sm mb-3 text-deep-blue">Court of Appeal Internship</h3>
-                <p className="body-sm text-deep-blue">
-                  Completed intensive internship at the Court of Appeal, gaining invaluable experience in appellate procedures and judicial processes.
-                </p>
-              </div>
-            </div>
 
             {/* Call to Action */}
             <div className="mt-12">
